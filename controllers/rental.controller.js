@@ -8,41 +8,47 @@ async function submitForm(req, res) {
     const {
         contactFirstName,
         contactLastName,
-        contactAddress,
         contactPhone,
         contactEmail,
+        contactAddress,
+        contactCity,
+        contactState,
+        contactZip,
 
-        streetAddress,
-        city,
-        zip,
         type,
+        buildingAddress,
+        buildingCity,
+        buildingState,
+        buildingZip,
         numberOfUnits,
 
-        apartmentNumber,
-        bedrooms,
+        rentUnits,
     } = req.body;
 
     const r = new Rental();
     r.createdAt = Date.now();
+
     r.contactFirstName = contactFirstName;
     r.contactLastName = contactLastName;
-    r.contactAddress = contactAddress;
     r.contactPhone = contactPhone;
     r.contactEmail = contactEmail;
-    r.streetAddress = streetAddress;
-    r.city = city;
-    r.zip = zip;
+    r.contactAddress = contactAddress;
+    r.contactCity = contactCity;
+    r.contactState = contactState;
+    r.contactZip = contactZip;
+
     r.type = type;
+    r.buildingAddress = buildingAddress;
+    r.buildingCity = buildingCity;
+    r.buildingState = buildingState;
+    r.buildingZip = buildingZip;
+
     if (numberOfUnits) {
         r.numberOfUnits = numberOfUnits;
     }
 
-    if (apartmentNumber) {
-        r.apartmentNumber = apartmentNumber;
-    }
-
-    if (bedrooms) {
-        r.bedrooms = bedrooms;
+    if (rentUnits) {
+        r.rentUnits = rentUnits;
     }
 
     await r.save();
