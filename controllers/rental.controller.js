@@ -1,5 +1,7 @@
 // Load models.
-const Rental = require('../models/rental.model');
+const Rental = require("../models/rental.model");
+const sgMail = require("@sendgrid/mail");
+const sgConf = require("../config/sendgrid.config");
 
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////// Submit Form /////////////////////////////////
@@ -56,7 +58,37 @@ async function submitForm(req, res) {
         result: true,
         rental: r,
     });
-};
+
+    //Send email to admin using sendgrid/mail
+    sgMail.setApiKey(sgConf.API_KEY);
+
+    let html = "<p>New weirton rental form was submitted.</p>";
+    html += "<strong>First Name:</strong> " + contactFirstName;
+    html += "<br/><strong>Last Name:</strong> " + contactLastName;
+    html += "<br/><strong>Phone:</strong> " + contactPhone;
+    html += "<br/><strong>Email:</strong> " + contactEmail;
+    html += "<br/><strong>Address:</strong> " + contactAddress;
+    html += "<br/><strong>City:</strong> " + contactCity;
+    html += "<br/><strong>State:</strong> " + contactState;
+    html += "<br/><strong>Zip Code:</strong> " + contactZip;
+
+    const msg = {
+        to: sgConf.ADMIN_EMAIL, // Change to your recipient
+        from: sgConf.SENDER, // Change to your verified sender
+        subject: "Weirton Rental Form",
+        text: "New weirton rental form was submitted.",
+        html: html,
+    };
+    sgMail
+        .send(msg)
+        .then((response) => {
+            console.log(response[0].statusCode);
+            console.log(response[0].headers);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}
 
 module.exports = {
     submitForm,
