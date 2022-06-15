@@ -90,6 +90,70 @@ async function submitForm(req, res) {
         });
 }
 
+// Get contact list
+async function getContacts(req, res) {
+    try {
+        Rental.find().then((data) => res.send(data));
+    } catch (error) {
+        res.json({ message: error });
+    }
+}
+
+// Get one contact by id
+async function getContact(req, res) {
+    try {
+        Rental.findById(req.params.contactId).then((data) => res.send(data));
+    } catch (error) {
+        res.json({ message: error });
+    }
+}
+
+// Update contact with id
+async function updateContact(req, res) {
+    try {
+        const contact = {
+            contactFirstName: req.body.contactFirstName,
+            contactLastName: req.body.contactLastName,
+            contactPhone: req.body.contactPhone,
+            contactEmail: req.body.contactEmail,
+            contactAddress: req.body.contactAddress,
+            contactCity: req.body.contactCity,
+            contactState: req.body.contactState,
+            contactZip: req.body.contactZip,
+
+            type: req.body.type,
+            buildingAddress: req.body.buildingAddress,
+            buildingCity: req.body.buildingCity,
+            buildingState: req.body.buildingState,
+            buildingZip: req.body.buildingZip,
+            numberOfUnits: req.body.numberOfUnits,
+            rentUnits: req.body.rentUnits,
+        };
+        const updatedContact = await Rental.findByIdAndUpdate(
+            { _id: req.params.contactId },
+            contact
+        );
+        res.send(updatedContact);
+    } catch (error) {
+        res.json({ message: error });
+    }
+}
+
+// Delect contact
+async function deleteContact(req, res) {
+    try {
+        const id = req.params.contactId;
+        const removeContact = await Rental.findByIdAndRemove(id);
+        res.send(removeProduct);
+    } catch (error) {
+        res.json({ message: error });
+    }
+}
+
 module.exports = {
     submitForm,
+    getContacts,
+    getContact,
+    updateContact,
+    deleteContact,
 };
