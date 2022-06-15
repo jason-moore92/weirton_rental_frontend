@@ -133,13 +133,13 @@ async function updateContact(req, res) {
             { _id: req.params.contactId },
             contact
         );
-        res.send(updatedContact);
+        res.send(contact);
     } catch (error) {
         res.json({ message: error });
     }
 }
 
-// Delect contact
+// Delect contract
 async function deleteContact(req, res) {
     try {
         const id = req.params.contactId;
