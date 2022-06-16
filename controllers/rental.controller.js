@@ -2,6 +2,8 @@
 const Rental = require("../models/rental.model");
 const sgMail = require("@sendgrid/mail");
 const sgConf = require("../config/sendgrid.config");
+sgMail.setApiKey(sgConf.API_KEY);
+const {FAMILY_TYPE} = require('../config');
 
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////// Submit Form /////////////////////////////////
@@ -54,40 +56,71 @@ async function submitForm(req, res) {
     }
 
     await r.save();
+
+    sendEmailNotification(r);
+
     res.json({
         result: true,
         rental: r,
     });
+}
 
-    //Send email to admin using sendgrid/mail
-    sgMail.setApiKey(sgConf.API_KEY);
+async function sendEmailNotification(r) {
+    let html = "<p>New weirton rental form was submitted.</p><br/>";
 
-    let html = "<p>New weirton rental form was submitted.</p>";
-    html += "<strong>First Name:</strong> " + contactFirstName;
-    html += "<br/><strong>Last Name:</strong> " + contactLastName;
-    html += "<br/><strong>Phone:</strong> " + contactPhone;
-    html += "<br/><strong>Email:</strong> " + contactEmail;
-    html += "<br/><strong>Address:</strong> " + contactAddress;
-    html += "<br/><strong>City:</strong> " + contactCity;
-    html += "<br/><strong>State:</strong> " + contactState;
-    html += "<br/><strong>Zip Code:</strong> " + contactZip;
+    // Property Owner.
+    html += "<p>=========== Property Owner ==============</p>";
+    html += "<strong>First Name:</strong> " + r.contactFirstName;
+    html += "<br/><strong>Last Name:</strong> " + r.contactLastName;
+    html += "<br/><strong>Phone:</strong> " + r.contactPhone;
+    html += "<br/><strong>Email:</strong> " + r.contactEmail;
+    html += "<br/><strong>Address:</strong> " + r.contactAddress;
+    html += "<br/><strong>City:</strong> " + r.contactCity;
+    html += "<br/><strong>State:</strong> " + r.contactState;
+    html += "<br/><strong>Zip Code:</strong> " + r.contactZip;
+
+    // Rental Property Building Info.
+    html += "<br/><br/><p>=========== Rental Property Building Info ==============</p>";
+    html += "<strong>Type:</strong> " + r.type;
+    html += "<br/><strong>Address:</strong> " + r.buildingAddress;
+    html += "<br/><strong>City:</strong> " + r.buildingCity;
+    html += "<br/><strong>State:</strong> " + r.buildingState;
+    html += "<br/><strong>Zip Code:</strong> " + r.buildingZip;
+    if (r.type === FAMILY_TYPE.MULTI) {
+        html += "<br/><strong>Number of Units:</strong> " + r.numberOfUnits;
+    }    
+
+    // Rent Units.
+    html += "<br/><br/><p>=========== Rent Units ==============</p>";
+    if (r.type === FAMILY_TYPE.SINGLE) {
+        html += "<strong>Address:</strong> " + r.buildingAddress;
+        html += "<br/><strong>City:</strong> " + r.buildingCity;
+        html += "<br/><strong>State:</strong> " + r.buildingState;
+        html += "<br/><strong>Zip Code:</strong> " + r.buildingZip;
+    }
+    else if(r.type === FAMILY_TYPE.MULTI && r.rentUnits && r.rentUnits.length > 0){
+        r.rentUnits.forEach((item, index) => {
+            html += `<br/><strong>Apartment Number #${index + 1}:</strong> ` + item.apartmentNumber;
+            html += `<br/><strong>Bedrooms #${index + 1}:</strong> ` + item.bedrooms;
+        });
+    }
 
     const msg = {
-        to: sgConf.ADMIN_EMAIL, // Change to your recipient
-        from: sgConf.SENDER, // Change to your verified sender
+        to: sgConf.ADMIN_EMAIL,
+        from: sgConf.SENDER,
         subject: "Weirton Rental Form",
-        text: "New weirton rental form was submitted.",
         html: html,
     };
+    
     sgMail
-        .send(msg)
-        .then((response) => {
-            console.log(response[0].statusCode);
-            console.log(response[0].headers);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+    .send(msg)
+    .then((response) => {
+        console.log(response[0].statusCode);
+        console.log(response[0].headers);
+    })
+    .catch((error) => {
+        console.error(error);
+    });
 }
 
 // Get contact list
