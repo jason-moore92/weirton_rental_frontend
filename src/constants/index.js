@@ -1,5 +1,5 @@
-// export const BASE_URL = "http://localhost:5000";
-export const BASE_URL = 'https://weirtonbackend.herokuapp.com';
+export const BASE_URL = "http://localhost:5000/api";
+// export const BASE_URL = 'https://weirtonbackend.herokuapp.com';
 export const DATE_TIME_FORMAT = "MMMM DD YYYY, hh:mm A";
 export const TOAST_SHOW_TIME = 3000;
 export const RECAPTCHA_KEY = '6LcF-nkgAAAAADOxW9u7oxVt-xm_O5hwkxTcZrIc';
@@ -71,3 +71,15 @@ export const STATE_NAMES = [
   "Wisconsin",
   "Wyoming",
 ];
+
+export const GENDER_TYPE = {
+  MALE: "male",
+  FEMALE: "female",
+};
+
+export const Income_TYPES = [
+  "Employment",
+  "Retirement",
+  "Fixed Income",
+  "Child Support",
+]

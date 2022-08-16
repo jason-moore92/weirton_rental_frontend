@@ -23,9 +23,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'src/assets/css/main.scss';
+
 .app-bar {
-  height: 56px;
-  background: #212529;
+  height: $appbarHeight;
+  background: $weirtonBlack;
   display: flex;
   align-items: center;
   justify-content: center;

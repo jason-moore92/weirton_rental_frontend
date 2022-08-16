@@ -1,17 +1,41 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import DashboardTemplate from "@/views/DashboardTemplate";
+import DashboardScreen from "@/views/DashboardScreen";
+import NewHousehold from "@/views/NewHousehold";
+
 import RentInfoScreen from "@/views/RentInfoScreen";
 import AdminLogin from "@/views/Admin/AdminLogin";
 import AdminHome from "@/views/Admin/AdminHome";
 import store from "@/store";
+import * as RouterPath from "@/constants/path";
+
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: RouterPath.ROOT,
+    name: "dashboard",
+    component: DashboardScreen,
+    components: { default: DashboardTemplate, child: DashboardScreen },
+    props: { default: true, child: true },
+    meta: {
+      requiresGuest: false,
+    },
+  },
+  {
+    path: RouterPath.DASHBOARD,
+    name: "dashboard",
+    component: DashboardScreen,
+    meta: {
+      requiresGuest: false,
+    },
+  },
+  {
+    path: RouterPath.NEW_HOUSEHOLD,
     name: "rentinfo",
-    component: RentInfoScreen,
+    component: NewHousehold,
     meta: {
       requiresGuest: false,
     },
