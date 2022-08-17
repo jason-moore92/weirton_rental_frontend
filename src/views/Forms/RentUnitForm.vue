@@ -65,15 +65,6 @@
             </div>
 
             <div class="row justify-space-between align-center mt-3">
-                <vue-recaptcha
-                    ref="recaptcha"
-                    :sitekey="recaptchaKey"
-                    @verify="verifyMethod"
-                    @expired="expiredMethod"
-                    @render="renderMethod"
-                    @error="errorMethod"
-                />
-
                 <div class="row justify-content-end button-box">
                     <v-btn
                         class="mr-3"
@@ -99,7 +90,6 @@
 </template>
 
 <script>
-import { VueRecaptcha } from 'vue-recaptcha';
 import { RECAPTCHA_KEY, FAMILY_TYPE, STATE_NAMES } from '@/constants';
 export default {
     name: "RentUnitForm",
@@ -109,7 +99,6 @@ export default {
         onBack: Function,
     },
     components: {
-        VueRecaptcha
     },
     data () {
         return {
