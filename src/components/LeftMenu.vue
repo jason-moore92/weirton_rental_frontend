@@ -1,6 +1,10 @@
 <template>
   <div class="menu-bar">
-    <div class="menu-item" v-for="(item) in leftMenuOptions" :key="item.id" @click="navigatorHandler(item)">
+    <div 
+      class="menu-item" 
+      :class="$route.path === item.path ? 'selected':''"
+      v-for="(item) in leftMenuOptions" :key="item.id" @click="navigatorHandler(item)"
+    >
       {{item.name}}
     </div>
   </div>
@@ -9,6 +13,8 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import * as RouterPath from "@/constants/path";
+import { goto } from "@/helpers/functions";
+
 
 export default {
   computed: {
@@ -27,7 +33,8 @@ export default {
   },
   methods: {
     navigatorHandler(item){
-      this.$router.push(item.path);
+      goto(item.path);
+      // this.$router.push(item.path);
     }
   },
 };
@@ -52,5 +59,11 @@ export default {
     padding: 10px 15px;
     font-size: 20px;
     text-align: center;
+  }
+  
+  .selected {
+    background-color: #B5BABE;
+    color: #FFF;
+    font-weight: bold;
   }
 </style>

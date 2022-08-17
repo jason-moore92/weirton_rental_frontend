@@ -6,7 +6,7 @@
         <LeftMenu />
       </div>
       <div class="col-10 mainBody">
-        <component v-bind:is="child"></component>
+        <router-view/>
       </div>
     </div>
   </div>

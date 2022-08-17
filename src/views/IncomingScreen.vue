@@ -1,13 +1,13 @@
 <template>
   <div class="main-page">
     <div class="income_page">
-      This is DashboardPage
+      This page is incoming
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: "DashboardScreen",
+  name: "IncomingScreen",
   components: {
   },
   data () {

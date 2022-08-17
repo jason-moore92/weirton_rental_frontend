@@ -52,6 +52,8 @@
 
 <script>
 import { mapActions } from "vuex";
+import { goto } from "@/helpers/functions";
+
 export default {
   name: "AdminLogin",
   props: {
@@ -77,7 +79,7 @@ export default {
       this.login(user)
         .then((res) => {
           if (res.data.success) {
-            this.$router.push("/contacts");
+            goto("/contacts");
           }
         })
         .catch((err) => {

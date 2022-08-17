@@ -1,8 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import LoginScreen from "@/views/LoginScreen";
 import DashboardTemplate from "@/views/DashboardTemplate";
 import DashboardScreen from "@/views/DashboardScreen";
 import NewHousehold from "@/views/NewHousehold";
+import IncomingScreen from "@/views/IncomingScreen";
 
 import RentInfoScreen from "@/views/RentInfoScreen";
 import AdminLogin from "@/views/Admin/AdminLogin";
@@ -16,29 +18,45 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: RouterPath.ROOT,
-    name: "dashboard",
-    component: DashboardScreen,
-    components: { default: DashboardTemplate, child: DashboardScreen },
-    props: { default: true, child: true },
-    meta: {
-      requiresGuest: false,
-    },
+    name: "Login",
+    component: LoginScreen,
   },
   {
     path: RouterPath.DASHBOARD,
     name: "dashboard",
-    component: DashboardScreen,
-    meta: {
-      requiresGuest: false,
-    },
-  },
-  {
-    path: RouterPath.NEW_HOUSEHOLD,
-    name: "rentinfo",
-    component: NewHousehold,
-    meta: {
-      requiresGuest: false,
-    },
+    component: DashboardTemplate,
+    children: [
+      {
+        path: '/',
+        name: 'dashboard_main',
+        component: DashboardScreen
+      },
+      {
+        path: RouterPath.NEW_HOUSEHOLD,
+        name: "new household",
+        component: NewHousehold,
+      },
+      {
+        path: RouterPath.HOMES,
+        name: "add/edit homs",
+        component: IncomingScreen,
+      },
+      {
+        path: RouterPath.ENTRIES_EDIT,
+        name: "edit exist entries",
+        component: IncomingScreen,
+      },
+      {
+        path: RouterPath.EXPORT_RESULT,
+        name: "expert result",
+        component: IncomingScreen,
+      },
+      {
+        path: RouterPath.MANAGE_USERS,
+        name: "manage user",
+        component: IncomingScreen,
+      },
+    ],
   },
   {
     path: "/admin",

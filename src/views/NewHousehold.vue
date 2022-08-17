@@ -105,9 +105,22 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <Loading
+      v-if="isSubmitting"
+      :active="true"
+      loader="dots"
+      :opacity="0.5"
+      :is-full-page="true"
+      color="#212529"
+      />
   </div>
 </template>
 <script>
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+
+
 import {mapActions} from 'vuex'
 import HeadOfHouseholdForm from "@/components/new_household/HeadOfHouseholdForm.vue";
 import AddressInfoForm from "@/components/new_household/AddressInfoForm.vue";
@@ -115,6 +128,10 @@ import OtherMemebersForm from "@/components/new_household/OtherMemebersForm.vue"
 import IncomeForm from "@/components/new_household/IncomeForm.vue";
 import UnitRentForm from "@/components/new_household/UnitRentForm.vue";
 import {TOAST_SHOW_TIME, FAMILY_TYPE, GENDER_TYPE } from "@/constants";
+import { DASHBOARD } from '@/constants/path';
+import * as RouterPath from "@/constants/path";
+import { goto } from "@/helpers/functions";
+
 
 export default {
   name: "NewHousehold",
@@ -124,11 +141,13 @@ export default {
     OtherMemebersForm,
     IncomeForm,
     UnitRentForm,
+    Loading,
   },
   data () {
     return {
       step: 1,
       showResultDialog: false,
+      isSubmitting: false,
       form: {
         oldHome: {
           address: '',
@@ -207,7 +226,6 @@ export default {
         this.form.incomeLimit = data.incomeLimit;
         this.form.isVoucher = data.isVoucher;
 
-        console.log("form",this.form)
         this.onSubmit();
       } 
     },
@@ -217,11 +235,15 @@ export default {
     },
 
     onSubmit() {
+      this.isSubmitting = true
       this.addNewHousehold(this.form).then(data => {
+      this.isSubmitting = false
         this.showResultDialog = true;
+        goto(RouterPath.DASHBOARD);
         // this.resetForm();
       })
       .catch(error => {
+        this.isSubmitting = false
         this.$toasted.error(error, {position: 'top-center', duration: TOAST_SHOW_TIME});
       });
     },
