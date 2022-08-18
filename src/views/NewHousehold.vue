@@ -11,25 +11,37 @@
 
         <v-divider></v-divider>
 
-        <v-stepper-step step="2">
+        <v-stepper-step
+          :complete="step > 2"
+          step="2"
+        >
           Address Info
         </v-stepper-step>
 
          <v-divider></v-divider>
 
-        <v-stepper-step step="3">
+        <v-stepper-step
+          :complete="step > 3"
+          step="3"
+        >
           Other Household Memebers
         </v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step step="4">
+        <v-stepper-step
+          :complete="step > 4"
+          step="4"
+        >
           Income
         </v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step step="5">
+        <v-stepper-step
+          :complete="step > 5"
+          step="5"
+        >
           Unit Rent
         </v-stepper-step>
       </v-stepper-header>
@@ -127,7 +139,7 @@ import AddressInfoForm from "@/components/new_household/AddressInfoForm.vue";
 import OtherMemebersForm from "@/components/new_household/OtherMemebersForm.vue";
 import IncomeForm from "@/components/new_household/IncomeForm.vue";
 import UnitRentForm from "@/components/new_household/UnitRentForm.vue";
-import {TOAST_SHOW_TIME, FAMILY_TYPE, GENDER_TYPE } from "@/constants";
+import {TOAST_SHOW_TIME, FAMILY_TYPE, GENDER_TYPE , MEMBER_TYPES} from "@/constants";
 import { DASHBOARD } from '@/constants/path';
 import * as RouterPath from "@/constants/path";
 import { goto } from "@/helpers/functions";
@@ -148,6 +160,7 @@ export default {
       step: 1,
       showResultDialog: false,
       isSubmitting: false,
+      memberTypes: MEMBER_TYPES,
       form: {
         oldHome: {
           address: '',
@@ -172,6 +185,7 @@ export default {
             firstName: '',
             lastName: '',
             birthday: '',
+            type: MEMBER_TYPES[0],
             gender: GENDER_TYPE.MALE,
             isStudent: 0,
           }
@@ -190,6 +204,7 @@ export default {
         this.form.members[0].firstName = data.firstName;
         this.form.members[0].lastName = data.lastName;
         this.form.members[0].birthday = data.birthday;
+        this.form.members[0].type = this.memberTypes[0];
         this.form.members[0].gender = data.gender;
         this.form.members[0].isStudent = data.isStudent;
 
@@ -274,6 +289,7 @@ export default {
             firstName: '',
             lastName: '',
             birthday: '',
+            type: this.memberTypes[0],
             gender: GENDER_TYPE.MALE,
             isStudent: 0,
           }

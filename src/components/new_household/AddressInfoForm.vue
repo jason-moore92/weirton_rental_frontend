@@ -161,236 +161,237 @@ import {isValidEmail} from "@/helpers/functions";
 import {STATE_NAMES} from '@/constants';
 
 export default {
-    name: "AddressInfoForm",
-    props: {
-      data: Object,
-      onNext: Function,
-      onBack: Function,
-    },
-    data () {
-      return {
-        disabledNext: true,
-        stateData: STATE_NAMES,
-        householdInfo: _.cloneDeep(this.data),
-        countryRules: [
-          (value) => !!value || "Please input a valid first name.",
-        ],
-        msaRules: [
-          (value) => !!value || "Please input a valid last name.",
-        ],
-        tractCodeRules: [
-          (value) => !!value || "Please input a valid tract code.",
-        ],
-        addressRules: [
-            (value) => !!value || "Please input a valid address.",
-        ],
-        cityRules: [
-            (value) => !!value || "Please input a valid city.",
-        ],
-        stateRules: [
-            (value) => !!value || "Please input a valid state.",
-        ],
-        zipRules: [
-            (value) => !!value || "Please input a valid zip code.",
-        ],
+  name: "AddressInfoForm",
+  props: {
+    data: Object,
+    onNext: Function,
+    onBack: Function,
+  },
+  data () {
+    return {
+      disabledNext: true,
+      stateData: STATE_NAMES,
+      householdInfo: _.cloneDeep(this.data),
+      countryRules: [
+        (value) => !!value || "Please input country.",
+      ],
+      msaRules: [
+        (value) => !!value || "Please input msa.",
+      ],
+      tractCodeRules: [
+        (value) => !!value || "Please input tract code.",
+      ],
+      addressRules: [
+          (value) => !!value || "Please input address.",
+      ],
+      cityRules: [
+          (value) => !!value || "Please input city.",
+      ],
+      stateRules: [
+          (value) => !!value || "Please input state.",
+      ],
+      zipRules: [
+          (value) => !!value || "Please input zip code.",
+      ],
+    }
+  },
+  watch: {
+    'householdInfo.oldHome.country': function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.checkValid();
       }
     },
-    watch: {
-      'householdInfo.oldHome.country': function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.checkValid();
-        }
-      },
 
-      'householdInfo.oldHome.msa': function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.checkValid();
-        }
-      },
-
-      'householdInfo.oldHome.tractCode': function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.checkValid();
-        }
-      },
-
-      'householdInfo.oldHome.address': function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.checkValid();
-        }
-      },
-
-      'householdInfo.oldHome.city': function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.checkValid();
-        }
-      },
-
-      'householdInfo.oldHome.state': function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.checkValid();
-        }
-      },
-
-      'householdInfo.oldHome.zipcode': function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.checkValid();
-        }
-      },
-
-      'householdInfo.newHome.country': function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.checkValid();
-        }
-      },
-
-      'householdInfo.newHome.msa': function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.checkValid();
-        }
-      },
-
-      'householdInfo.newHome.tractCode': function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.checkValid();
-        }
-      },
-
-      'householdInfo.newHome.address': function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.checkValid();
-        }
-      },
-
-      'householdInfo.newHome.city': function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.checkValid();
-        }
-      },
-
-      'householdInfo.newHome.state': function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.checkValid();
-        }
-      },
-
-      'householdInfo.newHome.zipcode': function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          this.checkValid();
-        }
-      },
-    },
-    mounted() {
-      this.initPage();
-    },
-    methods: {
-      initPage() {
-        this.householdInfo = _.cloneDeep(this.data);
+    'householdInfo.oldHome.msa': function (newValue, oldValue) {
+      if (newValue !== oldValue) {
         this.checkValid();
-      },
-      resetPage() {
-        this.householdInfo.oldHome = {
-          address: '',
-          city: '',
-          state: '',
-          zipcode: '',
-          country: '',
-          msa: '',
-          tractCode: '',
-        };
-        this.householdInfo.newHome = {
-          address: '',
-          city: '',
-          state: '',
-          zipcode: '',
-          country: '',
-          msa: '',
-          tractCode: '',
-        };
-      },
-      onNextForm() {
-        if (this.onNext) {
-          this.onNext(2, this.householdInfo);
-        }
-      },
-      checkValid() {
-        let valid = true;
-
-        // Check Country
-        if (!(this.householdInfo.oldHome.country && this.householdInfo.oldHome.country.length > 0)) {
-            valid = false;
-        }
-
-        // Check MSA
-        if (!(this.householdInfo.oldHome.msa && this.householdInfo.oldHome.msa.length > 0)) {
-            valid = false;
-        }
-
-        // Check Tract Code
-        if (!(this.householdInfo.oldHome.tractCode && this.householdInfo.oldHome.tractCode.length > 0)) {
-            valid = false;
-        }
-
-        
-        // Check Address.
-        if (!(this.householdInfo.oldHome.address && this.householdInfo.oldHome.address.length > 0)) {
-            valid = false;
-        }
-
-        // Check City.
-        if (!(this.householdInfo.oldHome.city && this.householdInfo.oldHome.city.length > 0)) {
-            valid = false;
-        }
-
-        // Check State.
-        if (!(this.householdInfo.oldHome.state && this.householdInfo.oldHome.state.length > 0)) {
-            valid = false;
-        }
-
-        // Check Zip.
-        if (!(this.householdInfo.oldHome.zipcode && this.householdInfo.oldHome.zipcode.length > 0)) {
-            valid = false;
-        }
-
-        // Check Country
-        if (!(this.householdInfo.newHome.country && this.householdInfo.newHome.country.length > 0)) {
-            valid = false;
-        }
-
-        // Check MSA
-        if (!(this.householdInfo.newHome.msa && this.householdInfo.newHome.msa.length > 0)) {
-            valid = false;
-        }
-
-        // Check Tract Code
-        if (!(this.householdInfo.newHome.tractCode && this.householdInfo.newHome.tractCode.length > 0)) {
-            valid = false;
-        }
-
-        
-        // Check Address.
-        if (!(this.householdInfo.newHome.address && this.householdInfo.newHome.address.length > 0)) {
-            valid = false;
-        }
-
-        // Check City.
-        if (!(this.householdInfo.newHome.city && this.householdInfo.newHome.city.length > 0)) {
-            valid = false;
-        }
-
-        // Check State.
-        if (!(this.householdInfo.newHome.state && this.householdInfo.newHome.state.length > 0)) {
-            valid = false;
-        }
-
-        // Check Zip.
-        if (!(this.householdInfo.newHome.zipcode && this.householdInfo.newHome.zipcode.length > 0)) {
-            valid = false;
-        }
-
-        this.disabledNext = !valid;
-      },
+      }
     },
+
+    'householdInfo.oldHome.tractCode': function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.checkValid();
+      }
+    },
+
+    'householdInfo.oldHome.address': function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.checkValid();
+      }
+    },
+
+    'householdInfo.oldHome.city': function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.checkValid();
+      }
+    },
+
+    'householdInfo.oldHome.state': function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.checkValid();
+      }
+    },
+
+    'householdInfo.oldHome.zipcode': function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.checkValid();
+      }
+    },
+
+    'householdInfo.newHome.country': function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.checkValid();
+      }
+    },
+
+    'householdInfo.newHome.msa': function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.checkValid();
+      }
+    },
+
+    'householdInfo.newHome.tractCode': function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.checkValid();
+      }
+    },
+
+    'householdInfo.newHome.address': function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.checkValid();
+      }
+    },
+
+    'householdInfo.newHome.city': function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.checkValid();
+      }
+    },
+
+    'householdInfo.newHome.state': function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.checkValid();
+      }
+    },
+
+    'householdInfo.newHome.zipcode': function (newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.checkValid();
+      }
+    },
+  },
+  mounted() {
+    this.initPage();
+  },
+  methods: {
+    initPage() {
+      this.householdInfo = _.cloneDeep(this.data);
+      this.checkValid();
+    },
+    resetPage() {
+      this.householdInfo.oldHome = {
+        address: '',
+        city: '',
+        state: '',
+        zipcode: '',
+        country: '',
+        msa: '',
+        tractCode: '',
+      };
+      this.householdInfo.newHome = {
+        address: '',
+        city: '',
+        state: '',
+        zipcode: '',
+        country: '',
+        msa: '',
+        tractCode: '',
+      };
+    },
+    onNextForm() {
+      if (this.onNext) {
+        
+        this.onNext(2, this.householdInfo);
+      }
+    },
+    checkValid() {
+      let valid = true;
+
+      // Check Country
+      if (!(this.householdInfo.oldHome.country && this.householdInfo.oldHome.country.length > 0)) {
+          valid = false;
+      }
+
+      // Check MSA
+      if (!(this.householdInfo.oldHome.msa && this.householdInfo.oldHome.msa.length > 0)) {
+          valid = false;
+      }
+
+      // Check Tract Code
+      if (!(this.householdInfo.oldHome.tractCode && this.householdInfo.oldHome.tractCode.length > 0)) {
+          valid = false;
+      }
+
+      
+      // Check Address.
+      if (!(this.householdInfo.oldHome.address && this.householdInfo.oldHome.address.length > 0)) {
+          valid = false;
+      }
+
+      // Check City.
+      if (!(this.householdInfo.oldHome.city && this.householdInfo.oldHome.city.length > 0)) {
+          valid = false;
+      }
+
+      // Check State.
+      if (!(this.householdInfo.oldHome.state && this.householdInfo.oldHome.state.length > 0)) {
+          valid = false;
+      }
+
+      // Check Zip.
+      if (!(this.householdInfo.oldHome.zipcode && this.householdInfo.oldHome.zipcode.length > 0)) {
+          valid = false;
+      }
+
+      // Check Country
+      if (!(this.householdInfo.newHome.country && this.householdInfo.newHome.country.length > 0)) {
+          valid = false;
+      }
+
+      // Check MSA
+      if (!(this.householdInfo.newHome.msa && this.householdInfo.newHome.msa.length > 0)) {
+          valid = false;
+      }
+
+      // Check Tract Code
+      if (!(this.householdInfo.newHome.tractCode && this.householdInfo.newHome.tractCode.length > 0)) {
+          valid = false;
+      }
+
+      
+      // Check Address.
+      if (!(this.householdInfo.newHome.address && this.householdInfo.newHome.address.length > 0)) {
+          valid = false;
+      }
+
+      // Check City.
+      if (!(this.householdInfo.newHome.city && this.householdInfo.newHome.city.length > 0)) {
+          valid = false;
+      }
+
+      // Check State.
+      if (!(this.householdInfo.newHome.state && this.householdInfo.newHome.state.length > 0)) {
+          valid = false;
+      }
+
+      // Check Zip.
+      if (!(this.householdInfo.newHome.zipcode && this.householdInfo.newHome.zipcode.length > 0)) {
+          valid = false;
+      }
+
+      this.disabledNext = !valid;
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

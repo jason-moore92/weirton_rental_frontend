@@ -35,9 +35,12 @@ export default {
 <style lang="scss" scoped>
   @import 'src/assets/css/main.scss';
 
+  .main-page {
+    height: 100%;
+  }
   #dashboard{
     display: flex;
-    height: calc(100vh - $appbarHeight);
+    height: calc(100% - $appbarHeight);
     width: 100%;
   }
 

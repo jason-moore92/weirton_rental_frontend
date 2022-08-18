@@ -77,6 +77,12 @@ export const GENDER_TYPE = {
   FEMALE: "female",
 };
 
+export const MEMBER_TYPES = [
+  "Co-Head",
+  "Spouse",
+  "Minor Child",
+]
+
 export const Income_TYPES = [
   "Employment",
   "Retirement",

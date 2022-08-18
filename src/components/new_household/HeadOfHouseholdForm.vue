@@ -3,7 +3,7 @@
     <v-card class="mb-12 p-5">
       <div class="d-flex justify-content-between mt-4">
         <v-text-field
-          class="col-md-4 col-sm-12"
+          class="col-md-6 col-sm-12"
           label="First Name"
           v-model="householdInfo.firstName"
           outlined
@@ -11,16 +11,19 @@
         />
 
         <v-text-field
-          class="col-md-4 col-sm-12"
+          class="col-md-6 col-sm-12"
           label="Last Name"
           v-model="householdInfo.lastName"
           outlined
           :rules="lastNameRules"
         />
 
+      </div>
+
+      <div class="d-flex justify-content-between mt-1">
          <v-text-field
-          class="col-md-4 col-sm-12"
-          label="Country"
+          class="col-md-12 col-sm-12"
+          label="Birthday"
           v-model="householdInfo.birthday"
           type="date"
           outlined
@@ -86,7 +89,7 @@
 import _ from "lodash";
 
 import {isValidEmail} from "@/helpers/functions";
-import {GENDER_TYPE} from '@/constants';
+import {GENDER_TYPE, MEMBER_TYPES} from '@/constants';
 
 export default {
     name: "HeadOfHouseholdForm",
@@ -99,19 +102,20 @@ export default {
       return {
         male: GENDER_TYPE.MALE,
         female: GENDER_TYPE.FEMALE,
+        memberTypes: MEMBER_TYPES,
         disabledNext: true,
         householdInfo: _.cloneDeep(this.data.members[0]),
         firstNameRules: [
-            (value) => !!value || "Please input a valid first name.",
+            (value) => !!value || "Please input first name.",
         ],
         lastNameRules: [
-            (value) => !!value || "Please input a valid last name.",
+            (value) => !!value || "Please input last name.",
         ],
         birthdayRules: [
-          (value) => !!value || "Please select a birthday.",
+          (value) => !!value || "Please select birthday.",
         ],
         addressRules: [
-            (value) => !!value || "Please input a valid address.",
+            (value) => !!value || "Please input address.",
         ],
       }
     },

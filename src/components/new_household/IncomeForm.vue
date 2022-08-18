@@ -71,7 +71,7 @@ export default {
             (value) => !!value || "Please select income type.",
         ],
         incomeAmountRules: [
-            (value) => !!value || "Please input a income amount.",
+            (value) => !!value || "Please input income amount.",
         ],
       }
     },
