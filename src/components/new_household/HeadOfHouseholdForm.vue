@@ -49,7 +49,7 @@
           </v-radio-group>
         </div>
         <div class="col-md-6 col-sm-12 col-12 d-flex align-items-center"  style="padding: 0px; margin: 0px;">
-          <div style="width: 100px;">Is Student?</div>
+          <div style="width: 100px;">Is a student?</div>
           <v-radio-group v-model="householdInfo.isStudent" row>
             <v-radio
               label="Yes"

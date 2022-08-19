@@ -1,7 +1,7 @@
 <template>
   <div class="app-bar">
     <div>
-      <img src="@/assets/images/logo.svg" class="icon-logo"  />
+      <!-- <img src="@/assets/images/logo.svg" class="icon-logo"  /> -->
       <v-app-bar-nav-icon class="btn-menu" @click.stop="sidebarHandler()" />
     </div>
     <v-toolbar-title class="bar-title">Weirton Rental Administration</v-toolbar-title>
