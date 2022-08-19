@@ -9,6 +9,7 @@
             v-model="householdInfo.oldHome.address"
             outlined
             :rules="addressRules"
+            @input="checkValid"
           />
         </div>
 
@@ -19,6 +20,7 @@
             v-model="householdInfo.oldHome.city"
             outlined
             :rules="cityRules"
+            @input="checkValid"
           />
 
           <v-select
@@ -28,6 +30,7 @@
             label="State"
             outlined
             :rules="stateRules"
+            @input="checkValid"
           />
 
           <v-text-field
@@ -36,6 +39,7 @@
             v-model="householdInfo.oldHome.zipcode"
             outlined
             :rules="zipRules"
+            @input="checkValid"
           />
         <!-- </div>
 
@@ -46,6 +50,7 @@
             v-model="householdInfo.oldHome.country"
             outlined
             :rules="countryRules"
+            @input="checkValid"
           />
           <v-text-field
             class="col-md-4 col-sm-5 col-12"
@@ -53,6 +58,7 @@
             v-model="householdInfo.oldHome.msa"
             outlined
             :rules="msaRules"
+            @input="checkValid"
           />
 
           <v-text-field
@@ -61,6 +67,7 @@
             v-model="householdInfo.oldHome.tractCode"
             outlined
             :rules="tractCodeRules"
+            @input="checkValid"
           />
         </div>
       </div>
@@ -73,6 +80,7 @@
             v-model="householdInfo.newHome.address"
             outlined
             :rules="addressRules"
+            @input="checkValid"
           />
         </div>
 
@@ -83,6 +91,7 @@
             v-model="householdInfo.newHome.city"
             outlined
             :rules="cityRules"
+            @input="checkValid"
           />
 
           <v-select
@@ -92,6 +101,7 @@
             label="State"
             outlined
             :rules="stateRules"
+            @input="checkValid"
           />
 
           <v-text-field
@@ -100,6 +110,7 @@
             v-model="householdInfo.newHome.zipcode"
             outlined
             :rules="zipRules"
+            @input="checkValid"
           />
         <!-- </div>
 
@@ -110,6 +121,7 @@
             v-model="householdInfo.newHome.country"
             outlined
             :rules="countryRules"
+            @input="checkValid"
           />
           <v-text-field
             class="col-md-4 col-sm-5 col-12"
@@ -117,6 +129,7 @@
             v-model="householdInfo.newHome.msa"
             outlined
             :rules="msaRules"
+            @input="checkValid"
           />
 
           <v-text-field
@@ -125,6 +138,7 @@
             v-model="householdInfo.newHome.tractCode"
             outlined
             :rules="tractCodeRules"
+            @input="checkValid"
           />
         </div>
       </div>
