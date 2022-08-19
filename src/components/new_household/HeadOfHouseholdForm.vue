@@ -1,39 +1,41 @@
 <template>
   <div class="contact-form">
     <v-card class="mb-12 p-5">
-      <div class="d-flex justify-content-between mt-4">
+      <div class="row justify-content-between mt-1">
         <v-text-field
-          class="col-md-6 col-sm-12"
+          class="col-md-6 col-sm-12 col-12"
           label="First Name"
           v-model="householdInfo.firstName"
           outlined
           :rules="firstNameRules"
+          @input="checkValid"
         />
 
         <v-text-field
-          class="col-md-6 col-sm-12"
+          class="col-md-6 col-sm-12 col-12"
           label="Last Name"
           v-model="householdInfo.lastName"
           outlined
           :rules="lastNameRules"
+          @input="checkValid"
         />
-
       </div>
 
-      <div class="d-flex justify-content-between mt-1">
+      <div class="row justify-content-between mt-4">
          <v-text-field
-          class="col-md-12 col-sm-12"
+          class="col"
           label="Birthday"
           v-model="householdInfo.birthday"
           type="date"
           outlined
           :rules="birthdayRules"
+          @input="checkValid"
         />
       </div>
 
-      <div class="d-flex justify-content-between mt-4">
-        <div class="col-md-6 col-sm-12 d-flex align-items-center"  style="padding: 0px; margin: 0px;">
-          <div style="padding-right: 10px;">Gender</div>
+      <div class="row justify-content-between mt-4">
+        <div class="col-md-6 col-sm-12 col-12 d-flex align-items-center"  style="padding: 0px; margin: 0px;">
+          <div style="width: 100px;">Gender</div>
           <v-radio-group v-model="householdInfo.gender" row>
             <v-radio
               label="Male"
@@ -46,8 +48,8 @@
             />
           </v-radio-group>
         </div>
-        <div class="col-md-6 col-sm-12 d-flex align-items-center"  style="padding: 0px; margin: 0px;">
-          <div style="padding-right: 10px;">Is Student?</div>
+        <div class="col-md-6 col-sm-12 col-12 d-flex align-items-center"  style="padding: 0px; margin: 0px;">
+          <div style="width: 100px;">Is Student?</div>
           <v-radio-group v-model="householdInfo.isStudent" row>
             <v-radio
               label="Yes"

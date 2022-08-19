@@ -2,8 +2,8 @@
   <div class="contact-form">
     <v-card class="mb-12 p-5">
       <div class="old-address" style="padding-bottom: 10px;">
-        <div class="label">Old Address</div>
-        <div class="d-flex">
+        <div class="label mb-3">Old Address</div>
+        <div class="row">
           <v-text-field
             label="Address"
             v-model="householdInfo.oldHome.address"
@@ -12,9 +12,9 @@
           />
         </div>
 
-        <div class="d-flex justify-content-between">
+        <div class="row justify-content-between">
           <v-text-field
-            class="col-md-4 col-sm-12"
+            class="col-md-4 col-sm-5 col-12"
             label="City"
             v-model="householdInfo.oldHome.city"
             outlined
@@ -22,7 +22,7 @@
           />
 
           <v-select
-            class="col-md-4 col-sm-12"
+            class="col-md-4 col-sm-5 col-12"
             :items="stateData"
             v-model="householdInfo.oldHome.state"
             label="State"
@@ -31,24 +31,24 @@
           />
 
           <v-text-field
-            class="col-md-4 col-sm-12"
+            class="col-md-4 col-sm-5 col-12"
             label="Zip Code"
             v-model="householdInfo.oldHome.zipcode"
             outlined
             :rules="zipRules"
           />
-        </div>
+        <!-- </div>
 
-        <div class="d-flex justify-content-between">
+        <div class="row justify-content-between"> -->
           <v-text-field
-            class="col-md-4 col-sm-12"
+            class="col-md-4 col-sm-5 col-12"
             label="Country"
             v-model="householdInfo.oldHome.country"
             outlined
             :rules="countryRules"
           />
           <v-text-field
-            class="col-md-4 col-sm-12"
+            class="col-md-4 col-sm-5 col-12"
             label="MSA"
             v-model="householdInfo.oldHome.msa"
             outlined
@@ -56,7 +56,7 @@
           />
 
           <v-text-field
-            class="col-md-4 col-sm-12"
+            class="col-md-4 col-sm-5 col-12"
             label="Tract Code"
             v-model="householdInfo.oldHome.tractCode"
             outlined
@@ -66,8 +66,8 @@
       </div>
 
       <div class="new-address">
-        <div class="label">New Address</div>
-        <div class="d-flex">
+        <div class="label mb-3">New Address</div>
+        <div class="row">
           <v-text-field
             label="Address"
             v-model="householdInfo.newHome.address"
@@ -76,9 +76,9 @@
           />
         </div>
 
-        <div class="d-flex justify-content-between">
+        <div class="row justify-content-between">
           <v-text-field
-            class="col-md-4 col-sm-12"
+            class="col-md-4 col-sm-5 col-12"
             label="City"
             v-model="householdInfo.newHome.city"
             outlined
@@ -86,7 +86,7 @@
           />
 
           <v-select
-            class="col-md-4 col-sm-12"
+            class="col-md-4 col-sm-5 col-12"
             :items="stateData"
             v-model="householdInfo.newHome.state"
             label="State"
@@ -95,24 +95,24 @@
           />
 
           <v-text-field
-            class="col-md-4 col-sm-12"
+            class="col-md-4 col-sm-5 col-12"
             label="Zip Code"
             v-model="householdInfo.newHome.zipcode"
             outlined
             :rules="zipRules"
           />
-        </div>
+        <!-- </div>
 
-        <div class="d-flex justify-content-between">
+        <div class="row justify-content-between"> -->
           <v-text-field
-            class="col-md-4 col-sm-12"
+            class="col-md-4 col-sm-5 col-12"
             label="Country"
             v-model="householdInfo.newHome.country"
             outlined
             :rules="countryRules"
           />
           <v-text-field
-            class="col-md-4 col-sm-12"
+            class="col-md-4 col-sm-5 col-12"
             label="MSA"
             v-model="householdInfo.newHome.msa"
             outlined
@@ -120,7 +120,7 @@
           />
 
           <v-text-field
-            class="col-md-4 col-sm-12"
+            class="col-md-4 col-sm-5 col-12"
             label="Tract Code"
             v-model="householdInfo.newHome.tractCode"
             outlined
@@ -129,26 +129,24 @@
         </div>
       </div>
 
-      <div class="d-flex justify-content-end">
-        <div class="d-flex justify-content-end mt-3">
-          <v-btn
-            class="mr-3"
-            color="normal"
-            large
-            @click="onBack"
-          >
-            Back
-          </v-btn>
+      <div class="d-flex justify-content-end mt-3">
+        <v-btn
+          class="mr-3"
+          color="normal"
+          large
+          @click="onBack"
+        >
+          Back
+        </v-btn>
 
-          <v-btn
-              color="primary"
-              large
-              :disabled="disabledNext"
-              @click="onNextForm"
-          >
-              Next
-          </v-btn>
-        </div>
+        <v-btn
+            color="primary"
+            large
+            :disabled="disabledNext"
+            @click="onNextForm"
+        >
+            Next
+        </v-btn>
       </div>
     </v-card>
   </div>
@@ -395,6 +393,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  .row {
+    margin: 0px !important;
+  }
   .label{
     padding-bottom: 10px;
   }

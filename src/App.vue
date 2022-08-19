@@ -25,6 +25,8 @@ export default {
 
 
 <style lang="scss">
+@import "@/assets/css/main.scss";
+
 .app {
   font-family: 'Open Sans', sans-serif;
   height: 100%;

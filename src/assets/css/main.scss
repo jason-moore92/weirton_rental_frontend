@@ -1,6 +1,27 @@
 //STYLE VARIABLES
-$weirtonBlack: #212529;
-$weirtonLeftMenu: #797F85;
-
+$wBlack: #212529;
+$wAppBar: #1CB5B1;
+$mainPageBack: #F4F6F8;
+$wLeftMenu: #FFF;
+$wSelectedMenuItem: #091023;
 
 $appbarHeight: 56px;
+$sidebarWidth: 250px;
+
+
+
+// //STYLE VARIABLES
+// $weirtonBodyBackWhiteColor: #F9F9F9;
+// $wBlack: #252733;
+// $wLeftMenu: #0E1A34;
+// $wSelectedMenuItem: #091023;
+
+
+// $appbarHeight: 56px;
+
+
+html,
+body {
+  font-family: 'Open Sans', sans-serif;
+  height: 100%;
+}

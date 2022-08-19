@@ -1,12 +1,12 @@
 <template>
   <div class="contact-form">
     <v-card class="mb-12 p-5">
-      <div v-for="(member, index) in members" :key="index" class="member-info d-flex justify-content-between">
-        <div class="col-md-4 col-sm-12">
+      <div v-for="(member, index) in members" :key="index" class="member-info row justify-content-between">
+        <div class="col-md-4 col-sm-2 col-12">
           {{member.firstName}} {{member.lastName}}
         </div>
         <v-select
-          class="col-md-4 col-sm-12"
+          class="col-md-4 col-sm-4 col-12"
           :items="incomeTypes"
           v-model="member.incomeType"
           label="Income Type"
@@ -16,7 +16,7 @@
         />
 
         <v-text-field
-          class="col-md-4 col-sm-12"
+          class="col-md-4 col-sm-4 col-12"
           label="Annual Amount"
           v-model="member.annualAmount"
           outlined

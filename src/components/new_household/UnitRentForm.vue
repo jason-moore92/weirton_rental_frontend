@@ -1,9 +1,9 @@
 <template>
   <div class="contact-form">
     <v-card class="mb-12 p-5">
-      <div class="d-flex justify-content-between mt-4">
+      <div class="row justify-content-between mt-4">
         <v-text-field
-          class="col-md-6 col-sm-12"
+          class="col-md-6 col-sm-5 col-12"
           label="Potential Rent"
           v-model="householdInfo.potentialRent"
           outlined
@@ -12,20 +12,18 @@
         />
 
         <v-text-field
-          class="col-md-6 col-sm-12"
+          class="col-md-6 col-sm-5 col-12"
           label="Tenant Rent"
           v-model="householdInfo.tenantRent"
           outlined
           :rules="tenantRentRules"
           type="number"
         />
-       
-      </div>
+      <!-- </div>
 
-
-      <div class="d-flex justify-content-between mt-4">
+      <div class="row justify-content-between mt-4"> -->
          <v-text-field
-          class="col-md-6 col-sm-12"
+          class="col-md-6 col-sm-5 col-12"
           label="Concession"
           v-model="householdInfo.concession"
           outlined
@@ -34,7 +32,7 @@
         />
 
         <v-text-field
-          class="col-md-6 col-sm-12"
+          class="col-md-6 col-sm-5 col-12"
           label="Income Limit"
           v-model="householdInfo.incomeLimit"
           outlined
@@ -43,22 +41,20 @@
         />
       </div>
 
-      <div class="d-flex justify-content-between mt-4">
        
-        <div class="d-flex align-items-center"  style="padding: 0px; margin: 0px;">
-          <div style="padding-right: 10px;">Voucher</div>
-          <v-radio-group v-model="householdInfo.isVoucher" row>
-            <v-radio
-              label="Yes"
-              :value=1
-            />
-            <v-radio
-              class="multi-radio"
-              label="No"
-              :value=0
-            />
-          </v-radio-group>
-        </div>
+      <div class="row align-items-center"  style="padding: 0px; margin: 0px;">
+        <div style="padding-right: 10px;">Voucher</div>
+        <v-radio-group v-model="householdInfo.isVoucher" row>
+          <v-radio
+            label="Yes"
+            :value=1
+          />
+          <v-radio
+            class="multi-radio"
+            label="No"
+            :value=0
+          />
+        </v-radio-group>
       </div>
 
       <div class="d-flex justify-content-end mt-3">

@@ -1,6 +1,6 @@
 <template>
   <div class="main-page">
-    <v-stepper v-model="step">
+    <v-stepper v-model="step" class="">
       <v-stepper-header>
         <v-stepper-step
           :complete="step > 1"
@@ -156,6 +156,7 @@ export default {
     Loading,
   },
   data () {
+    console.log("NewHousehold init",)
     return {
       step: 1,
       showResultDialog: false,
@@ -209,22 +210,18 @@ export default {
         this.form.members[0].isStudent = data.isStudent;
 
         this.step = 2;
-        console.log("form",this.form)
         this.$refs.addressInfoForm.initPage();
       }
       else if (step === 2) {
         this.form.oldHome = data.oldHome;
         this.form.newHome = data.newHome;
         this.step = 3;
-        console.log("form",this.form)
         this.$refs.membersForm.initPage();
       } else if (step === 3) {
         this.form.members = [
           ...[this.form.members[0]],
           ...data.members
         ];
-        console.log("form",this.form)
-        console.log("data.members",data.members)
         this.$refs.incomeForm.initPage();
         this.step = 4;
       } else if (step === 4) {
@@ -232,7 +229,6 @@ export default {
           ...data.members
         ];
         this.step = 5;
-        console.log("form",this.form)
         this.$refs.unitRentForm.initPage();
       }else if (step === 5) {
         this.form.potentialRent = data.potentialRent;
@@ -309,29 +305,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content-form {
+  @import 'src/assets/css/main.scss';
+
+  .v-stepper__header {
+    background-color: $mainPageBack;
+  }
+  
+  .content-form {
+    background-color: $mainPageBack;
+    ::v-deep {
+      .v-sheet.v-card:not(.v-sheet--outlined) {
+        border: 1px solid rgba(0 0 0 / 14%);
+        max-width: 700px;
+        margin: 50px auto;
+      }
+
+      @media (min-width: 768px) {
+        .v-input.col-md-6  {
+          max-width: 48%;
+        }
+
+        .v-input.col-md-4 {
+          max-width: 31%;
+        }
+      }
+    }  
+  }
+
   ::v-deep {
-    .v-sheet.v-card:not(.v-sheet--outlined) {
-      border: 1px solid rgba(0 0 0 / 14%);
-      max-width: 700px;
-      margin: 50px auto;
-    }
-
-    @media (min-width: 768px) {
-      .v-input.col-md-6  {
-        max-width: 48%;
+      .v-sheet.v-stepper:not(.v-sheet--outlined) {
+        box-shadow: none;
       }
-
-       .v-input.col-md-4 {
-        max-width: 31%;
-      }
-    }
   }  
-}
-
-::v-deep {
-    .v-sheet.v-stepper:not(.v-sheet--outlined) {
-      box-shadow: none;
-    }
-}  
 </style>

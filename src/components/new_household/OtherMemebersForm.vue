@@ -2,9 +2,9 @@
   <div class="contact-form">
     <v-card class="mb-12 p-5">
       <div v-for="(member, index) in members" :key="index" class="member-panel">
-        <div class="d-flex justify-content-between mt-4">
+        <div class="row justify-content-between mt-4">
           <v-text-field
-            class="col-md-6 col-sm-12"
+            class="col-md-6 col-sm-5 col-12"
             label="First Name"
             v-model="member.firstName"
             outlined
@@ -13,18 +13,18 @@
           />
 
           <v-text-field
-            class="col-md-6 col-sm-12"
+            class="col-md-6 col-sm-5 col-12"
             label="Last Name"
             v-model="member.lastName"
             outlined
             :rules="lastNameRules"
             @input="checkValid"
           />
-        </div>
+        <!-- </div>
 
-        <div class="d-flex justify-content-between mt-4">
+        <div class="row justify-content-between mt-4"> -->
           <v-text-field
-            class="col-md-6 col-sm-12"
+            class="col-md-6 col-sm-5 col-12"
             label="Birthday"
             v-model="member.birthday"
             type="date"
@@ -34,7 +34,7 @@
           />
 
           <v-select
-            class="col-md-6 col-sm-12"
+            class="col-md-6 col-sm-5 col-12"
             :items="memberTypes"
             v-model="member.type"
             label="Type"
@@ -43,9 +43,9 @@
           />
         </div>
 
-        <div class="d-flex justify-content-between mt-1">
-          <div class="col-md-12 col-sm-12 d-flex align-items-center" style="padding: 0px; margin: 0px;">
-            <div style="padding-right: 10px; width:120px;">Gender</div>
+        <div class="row justify-content-between mt-1">
+          <div class="col-md-12 col-sm-12 row align-items-center" style="padding: 0px; margin: 0px;">
+            <div style="width:120px;">Gender</div>
             <v-radio-group v-model="member.gender" row>
               <v-radio
                 label="Male"
@@ -60,9 +60,9 @@
           </div>
         </div>
         
-        <div class="d-flex justify-content-between align-items-center mt-1">
+        <div class="row justify-content-between align-items-center mt-1">
           <div class="d-flex align-items-center">
-            <div style="padding-right: 10px; width:120px;">Is a student?</div>
+            <div style="width:120px;">Is a student?</div>
             <v-radio-group v-model="member.isStudent" row>
               <v-radio
                 label="Yes"
@@ -208,6 +208,12 @@ export default {
 
         // Check last name.
         if (!(member.lastName && member.lastName.length > 0)) {
+            valid = false;
+            break;
+        }
+
+         // Check last name.
+        if (!(member.type && member.type.length > 0)) {
             valid = false;
             break;
         }

@@ -1,12 +1,23 @@
 <template>
   <div class="menu-bar">
-    <div 
-      class="menu-item" 
-      :class="$route.path === item.path ? 'selected':''"
-      v-for="(item) in leftMenuOptions" :key="item.id" @click="navigatorHandler(item)"
+    <sidebar-menu
+      :menu="menu"
+      :collapsed="false"
+      :hideToggle="true"
+      :disableHover="false"
+      :width="'250px'"
+      :theme="'white-theme'"
     >
-      {{item.name}}
-    </div>
+      <div slot="footer">
+        <div class="side-footer">
+          <div>
+            <a target="_blank" :href="'./'">Terms of Use</a> ·
+            <a target="_blank" :href="'./'">Privacy Policy</a>
+          </div>
+          <div>@ Copyright {{ new Date().getFullYear() }}</div>
+        </div>
+      </div>
+    </sidebar-menu>
   </div>
 </template>
 
@@ -29,6 +40,62 @@ export default {
         { id: 4, name: "Export Results",  path: RouterPath.EXPORT_RESULT},
         { id: 5, name: "Manager Users",  path: RouterPath.MANAGE_USERS},
       ],
+      menu: [
+        {
+          header: true,
+          hiddenOnCollapse: true
+        },
+        {
+          href: RouterPath.NEW_HOUSEHOLD,
+          title: 'Add New Household',
+          icon: {
+            element: 'img',
+            attributes: {
+              src: require('@/assets/images/sidemenu/side_home.svg'),
+            }
+          },
+        },
+        {
+          href: RouterPath.HOMES,
+          title: 'Edit/Add Homes',
+          icon: {
+            element: 'img',
+            attributes: {
+              src: require('@/assets/images/sidemenu/side_projects_icon.png'),
+            }
+          },
+        },
+        {
+          href: RouterPath.ENTRIES_EDIT,
+          title: 'Edit Existing Entries',
+          icon: {
+            element: 'img',
+            attributes: {
+              src: require('@/assets/images/sidemenu/side_search.svg'),
+            }
+          },
+        },
+        {
+          href: RouterPath.EXPORT_RESULT,
+          title: 'Export Results',
+          icon: {
+            element: 'img',
+            attributes: {
+              src: require('@/assets/images/sidemenu/side_message.svg'),
+            }
+          },
+        },
+        {
+          href: RouterPath.MANAGE_USERS,
+          title: 'Manager Users',
+          icon: {
+            element: 'img',
+            attributes: {
+              src: require('@/assets/images/sidemenu/side_payment.svg'),
+            }
+          },
+        },
+      ],
     }
   },
   methods: {
@@ -44,7 +111,7 @@ export default {
   @import 'src/assets/css/main.scss';
 
   .menu-bar {
-    background-color: $weirtonLeftMenu;
+    background-color: $wLeftMenu;
     width: 100%;
     height: 100%;
     padding: 0;
@@ -52,18 +119,48 @@ export default {
     padding-top: 20px;
   }
 
-  .menu-item {
-    cursor: pointer;
-    width: 100%;
-    color: #FFF;
-    padding: 10px 15px;
-    font-size: 20px;
-    text-align: center;
+  .v-sidebar-menu {
+    top: $appbarHeight;
+    z-index: 10;
+    padding-top: 10px;
+
+    &.vsm_collapsed {
+      .vsm--item {
+          padding-left: 0px;
+          padding-right: 0px;
+      }
+    }
+
+    .vsm--header {
+      display: none;
+    }
+
+    .vsm--item {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .vsm--link_level-1 {
+      .vsm--icon {
+        background: transparent;
+        width: 22px;
+        height: 22px;
+      }
+
+      .vsm--title {
+        font-size: 14px;
+      }
+    }
   }
-  
-  .selected {
-    background-color: #B5BABE;
-    color: #FFF;
-    font-weight: bold;
+
+  .side-footer {
+    border-top: 1px solid #E0E0E0;
+    color: #546E7A;
+    font-size: 12px;
+    padding: 15px 15px;
+
+    a {
+        color: #546E7A;
+    }
   }
 </style>
