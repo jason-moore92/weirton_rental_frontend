@@ -37,7 +37,7 @@
       </div>
 
       <div class="row justify-content-between mt-4">
-        <div class="col-md-6 col-sm-12 col-12 d-flex align-items-center"  style="padding: 0px; margin: 0px;">
+        <div class="col-md-6 col-sm-12 col-12 option-row"  style="padding: 0px; margin: 0px;">
           <div class="option-label">Gender</div>
           <v-radio-group v-model="householdInfo.gender" row>
             <v-radio
@@ -51,7 +51,7 @@
             />
           </v-radio-group>
         </div>
-        <div class="col-md-6 col-sm-12 col-12 d-flex align-items-center"  style="padding: 0px; margin: 0px;">
+        <div class="col-md-6 col-sm-12 col-12 option-row"  style="padding: 0px; margin: 0px;">
           <div class="option-label">Is a student?</div>
           <v-radio-group v-model="householdInfo.isStudent" row>
             <v-radio
@@ -204,16 +204,28 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  .option-row{
+    display: flex;
+    align-items: center;
+  }
+  
   .option-label {
     width: 100px;
     padding-right: 0px;
   }
+  
 
   @media screen and (max-width: 400px) {
     .option-label {
       width: max-content;
       padding-right: 10px;
     } 
+  }
+
+  @media screen and (max-width: 360px) {
+    .option-row{
+      display: block;
+    }
   }
 </style>
 <style lang="scss">

@@ -52,7 +52,7 @@
         </div>
 
         <div class="row justify-content-between mt-1">
-          <div class="col-md-12 col-sm-12 row align-items-center" style="padding: 0px; margin: 0px;">
+          <div class="option-row"  style="padding: 0px; margin: 0px;">
             <div class="option-label">Gender</div>
             <v-radio-group v-model="member.gender" row>
               <v-radio
@@ -69,7 +69,7 @@
         </div>
         
         <div class="row justify-content-between align-items-center mt-1 ">
-          <div class="d-flex align-items-center">
+          <div class="option-row"  style="padding: 0px; margin: 0px;">
             <div class="option-label">Is a student?</div>
             <v-radio-group v-model="member.isStudent" row>
               <v-radio
@@ -273,6 +273,12 @@ export default {
     }
   }
 
+  .option-row{
+    padding-top: 0px !important;
+    display: flex;
+    align-items: center;
+  }
+
   .option-label {
     width: 100px;
     padding-right: 0px;
@@ -291,6 +297,13 @@ export default {
       width: 100%;
       display: flex;
       justify-content: flex-end;
+    }
+  }
+
+  @media screen and (max-width: 360px) {
+    .option-row{
+      padding-top: 10px !important;
+      display: block;
     }
   }
 </style>
