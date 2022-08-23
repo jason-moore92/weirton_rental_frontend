@@ -1,7 +1,7 @@
 <template>
   <div class="main-page">
     <div class="income_page">
-      This is DashboardPage
+      Dashboard Page
     </div>
   </div>
 </template>
