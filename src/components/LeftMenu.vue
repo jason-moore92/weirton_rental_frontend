@@ -107,7 +107,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import 'src/assets/css/main.scss';
 
   .menu-bar {
@@ -122,12 +122,11 @@ export default {
   .v-sidebar-menu {
     top: $appbarHeight;
     z-index: 10;
-    padding-top: 10px;
 
     &.vsm_collapsed {
       .vsm--item {
-          padding-left: 0px;
-          padding-right: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
       }
     }
 
@@ -135,20 +134,19 @@ export default {
       display: none;
     }
 
+    .vsm--title {
+      font-size: 14px;
+    }
+
     .vsm--item {
       padding-left: 10px;
-      padding-right: 10px;
     }
 
     .vsm--link_level-1 {
       .vsm--icon {
         background: transparent;
-        width: 22px;
-        height: 22px;
-      }
-
-      .vsm--title {
-        font-size: 14px;
+        width: 25px;
+        height: 25px;
       }
     }
   }
@@ -160,7 +158,7 @@ export default {
     padding: 15px 15px;
 
     a {
-        color: #546E7A;
+      color: #546E7A;
     }
   }
 </style>
