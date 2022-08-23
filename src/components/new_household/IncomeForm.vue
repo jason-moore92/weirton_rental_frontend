@@ -13,6 +13,7 @@
           outlined
           :rules="incomeTypeRules"
           @input="checkValid"
+          @change="checkValid"
         />
 
         <v-text-field
@@ -23,6 +24,7 @@
           type="number"
           :rules="incomeAmountRules"
           @input="checkValid"
+          @change="checkValid"
         />
       </div>
 

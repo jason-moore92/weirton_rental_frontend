@@ -10,6 +10,7 @@
             outlined
             :rules="firstNameRules"
             @input="checkValid"
+            @change="checkValid"
           />
 
           <v-text-field
@@ -19,6 +20,7 @@
             outlined
             :rules="lastNameRules"
             @input="checkValid"
+            @change="checkValid"
           />
         <!-- </div>
 
@@ -31,6 +33,10 @@
             outlined
             :rules="birthdayRules"
             @input="checkValid"
+            @blur="checkValid"
+            @change="checkValid"
+            @focus="checkValid"
+            @keydown="checkValid"
           />
 
           <v-select
@@ -40,12 +46,14 @@
             label="Type"
             outlined
             :rules="memberRules"
+            @input="checkValid"
+            @change="checkValid"
           />
         </div>
 
         <div class="row justify-content-between mt-1">
           <div class="col-md-12 col-sm-12 row align-items-center" style="padding: 0px; margin: 0px;">
-            <div style="width:120px;">Gender</div>
+            <div class="option-label">Gender</div>
             <v-radio-group v-model="member.gender" row>
               <v-radio
                 label="Male"
@@ -60,9 +68,9 @@
           </div>
         </div>
         
-        <div class="row justify-content-between align-items-center mt-1">
+        <div class="row justify-content-between align-items-center mt-1 ">
           <div class="d-flex align-items-center">
-            <div style="width:120px;">Is a student?</div>
+            <div class="option-label">Is a student?</div>
             <v-radio-group v-model="member.isStudent" row>
               <v-radio
                 label="Yes"
@@ -76,9 +84,11 @@
             </v-radio-group>
           </div>
 
-          <v-btn icon class="btn-delete" @click="onRemoveMember(index)">
-            <v-icon>mdi-delete</v-icon>
-          </v-btn>
+          <div class="btn-delete-div">
+            <v-btn icon class="btn-delete" @click="onRemoveMember(index)">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </div>
         </div>
       </div>
 
@@ -91,6 +101,8 @@
           Add New Memeber
         </v-btn>
       </div>
+
+      <div style="height: 10px;">&nbsp;</div>
 
       <div class="d-flex justify-content-end mt-3">
         <v-btn
@@ -191,29 +203,36 @@ export default {
         // Check Birthday
         if (!(member.birthday && member.birthday.length > 0)) {
             valid = false;
+            console.log("member.birthday",member.birthday)
             break;
+        }else{
+            console.log("member.birthday",member.birthday)
         }
 
         // Check Gender
         if (!(member.gender && member.gender.length > 0)) {
             valid = false;
+            console.log("member.gender",member.gender)
             break;
         }
 
         // Check first name.
         if (!(member.firstName && member.firstName.length > 0)) {
             valid = false;
+            console.log("member.firstName",member.firstName)
             break;
         }
 
         // Check last name.
         if (!(member.lastName && member.lastName.length > 0)) {
+            console.log("member.lastName",member.lastName)
             valid = false;
             break;
         }
 
          // Check last name.
         if (!(member.type && member.type.length > 0)) {
+            console.log("member.type",member.type)
             valid = false;
             break;
         }
@@ -247,11 +266,31 @@ export default {
   }
 
   .btn-delete {
-    right: 10px;
     color: red !important;
 
     span, i {
       color: red !important;
+    }
+  }
+
+  .option-label {
+    width: 100px;
+    padding-right: 0px;
+  }
+
+  .btn-delete-div{
+  }
+
+  @media screen and (max-width: 400px) {
+    .option-label {
+      width: max-content;
+      padding-right: 10px;
+    } 
+
+    .btn-delete-div{
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
     }
   }
 </style>

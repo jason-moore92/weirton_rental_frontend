@@ -10,6 +10,7 @@
           :rules="potentialRentRules"
           type="number"
           @input="checkValid"
+          @change="checkValid"
         />
 
         <v-text-field
@@ -20,6 +21,7 @@
           :rules="tenantRentRules"
           type="number"
           @input="checkValid"
+          @change="checkValid"
         />
       <!-- </div>
 
@@ -32,6 +34,7 @@
           :rules="concessionRules"
           type="number"
           @input="checkValid"
+          @change="checkValid"
         />
 
         <v-text-field
@@ -42,6 +45,7 @@
           :rules="incomeLimitRules"
           type="number"
           @input="checkValid"
+          @change="checkValid"
         />
       </div>
 

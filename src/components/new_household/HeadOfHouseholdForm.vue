@@ -9,6 +9,7 @@
           outlined
           :rules="firstNameRules"
           @input="checkValid"
+          @change="checkValid"
         />
 
         <v-text-field
@@ -18,6 +19,7 @@
           outlined
           :rules="lastNameRules"
           @input="checkValid"
+          @change="checkValid"
         />
       </div>
 
@@ -30,12 +32,13 @@
           outlined
           :rules="birthdayRules"
           @input="checkValid"
+          @change="checkValid"
         />
       </div>
 
       <div class="row justify-content-between mt-4">
         <div class="col-md-6 col-sm-12 col-12 d-flex align-items-center"  style="padding: 0px; margin: 0px;">
-          <div style="width: 100px;">Gender</div>
+          <div class="option-label">Gender</div>
           <v-radio-group v-model="householdInfo.gender" row>
             <v-radio
               label="Male"
@@ -49,7 +52,7 @@
           </v-radio-group>
         </div>
         <div class="col-md-6 col-sm-12 col-12 d-flex align-items-center"  style="padding: 0px; margin: 0px;">
-          <div style="width: 100px;">Is a student?</div>
+          <div class="option-label">Is a student?</div>
           <v-radio-group v-model="householdInfo.isStudent" row>
             <v-radio
               label="Yes"
@@ -73,7 +76,6 @@
         >
           Back
         </v-btn> -->
-
         <v-btn
             color="primary"
             large
@@ -202,9 +204,21 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  .option-label {
+    width: 100px;
+    padding-right: 0px;
+  }
+
+  @media screen and (max-width: 400px) {
+    .option-label {
+      width: max-content;
+      padding-right: 10px;
+    } 
+  }
 </style>
 <style lang="scss">
   .v-label {
     margin: 0px;
   }
+  
 </style>

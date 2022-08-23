@@ -10,6 +10,7 @@
             outlined
             :rules="addressRules"
             @input="checkValid"
+            @change="checkValid"
           />
         </div>
 
@@ -21,6 +22,7 @@
             outlined
             :rules="cityRules"
             @input="checkValid"
+            @change="checkValid"
           />
 
           <v-select
@@ -31,6 +33,7 @@
             outlined
             :rules="stateRules"
             @input="checkValid"
+            @change="checkValid"
           />
 
           <v-text-field
@@ -40,6 +43,7 @@
             outlined
             :rules="zipRules"
             @input="checkValid"
+            @change="checkValid"
           />
         <!-- </div>
 
@@ -51,6 +55,7 @@
             outlined
             :rules="countryRules"
             @input="checkValid"
+            @change="checkValid"
           />
           <v-text-field
             class="col-md-4 col-sm-5 col-12"
@@ -59,6 +64,7 @@
             outlined
             :rules="msaRules"
             @input="checkValid"
+            @change="checkValid"
           />
 
           <v-text-field
@@ -68,6 +74,7 @@
             outlined
             :rules="tractCodeRules"
             @input="checkValid"
+            @change="checkValid"
           />
         </div>
       </div>
@@ -81,6 +88,7 @@
             outlined
             :rules="addressRules"
             @input="checkValid"
+            @change="checkValid"
           />
         </div>
 
@@ -92,6 +100,7 @@
             outlined
             :rules="cityRules"
             @input="checkValid"
+            @change="checkValid"
           />
 
           <v-select
@@ -102,6 +111,7 @@
             outlined
             :rules="stateRules"
             @input="checkValid"
+            @change="checkValid"
           />
 
           <v-text-field
@@ -111,6 +121,7 @@
             outlined
             :rules="zipRules"
             @input="checkValid"
+            @change="checkValid"
           />
         <!-- </div>
 
@@ -122,6 +133,7 @@
             outlined
             :rules="countryRules"
             @input="checkValid"
+            @change="checkValid"
           />
           <v-text-field
             class="col-md-4 col-sm-5 col-12"
@@ -130,6 +142,7 @@
             outlined
             :rules="msaRules"
             @input="checkValid"
+            @change="checkValid"
           />
 
           <v-text-field
@@ -139,6 +152,7 @@
             outlined
             :rules="tractCodeRules"
             @input="checkValid"
+            @change="checkValid"
           />
         </div>
       </div>
