@@ -88,4 +88,5 @@ export const Income_TYPES = [
   "Retirement",
   "Fixed Income",
   "Child Support",
+  "No Income",
 ]
