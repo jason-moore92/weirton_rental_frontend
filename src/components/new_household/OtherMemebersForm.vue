@@ -130,7 +130,7 @@
 <script>
 import _ from "lodash";
 
-import {isValidEmail} from "@/helpers/functions";
+import {isValidEmail, detectBrowser } from "@/helpers/functions";
 import {GENDER_TYPE, MEMBER_TYPES} from '@/constants';
 
 export default {
@@ -244,7 +244,7 @@ export default {
       this.members.push({
         firstName: "",
         lastName: "",
-        birthday: "",
+        birthday: detectBrowser() == 'Safari'? "2000-01-01" : null,
         gender: GENDER_TYPE.MALE,
         isStudent: 0,
       })

@@ -142,7 +142,7 @@ import UnitRentForm from "@/components/new_household/UnitRentForm.vue";
 import {TOAST_SHOW_TIME, FAMILY_TYPE, GENDER_TYPE , MEMBER_TYPES} from "@/constants";
 import { DASHBOARD } from '@/constants/path';
 import * as RouterPath from "@/constants/path";
-import { goto } from "@/helpers/functions";
+import { goto, detectBrowser } from "@/helpers/functions";
 
 
 export default {
@@ -185,7 +185,7 @@ export default {
           {
             firstName: '',
             lastName: '',
-            birthday: '',
+            birthday: detectBrowser() == 'Safari'? "2000-01-01" : null,
             type: MEMBER_TYPES[0],
             gender: GENDER_TYPE.MALE,
             isStudent: 0,
@@ -284,7 +284,7 @@ export default {
           {
             firstName: '',
             lastName: '',
-            birthday: '',
+            birthday: detectBrowser() == 'Safari'? "2000-01-01" : null,
             type: this.memberTypes[0],
             gender: GENDER_TYPE.MALE,
             isStudent: 0,
