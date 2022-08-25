@@ -14,6 +14,7 @@
         :disableHover="!showSidebar"
         :width="'250px'"
         :theme="'white-theme'"
+        @item-click="onItemClick"
       >
         <div slot="footer">
           <div class="side-footer">
@@ -124,6 +125,12 @@ export default {
         this.showSidebar = false;
       }else{
         this.showSidebar = true;
+      }
+    },
+    onItemClick(event, item) {
+      let width = window.innerWidth;
+      if (width <= 960) {
+        this.showSidebar = !this.showSidebar
       }
     }
   },
