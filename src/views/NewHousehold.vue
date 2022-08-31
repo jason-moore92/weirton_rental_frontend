@@ -119,6 +119,15 @@
     </v-dialog>
 
     <Loading
+      v-if="isLoading"
+      :active="true"
+      loader="dots"
+      :opacity="0.5"
+      :is-full-page="true"
+      color="#212529"
+      />
+
+    <Loading
       v-if="isSubmitting"
       :active="true"
       loader="dots"
@@ -131,9 +140,9 @@
 <script>
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
-
-
+import _ from "lodash";
 import {mapActions} from 'vuex'
+
 import HeadOfHouseholdForm from "@/components/new_household/HeadOfHouseholdForm.vue";
 import AddressInfoForm from "@/components/new_household/AddressInfoForm.vue";
 import OtherMemebersForm from "@/components/new_household/OtherMemebersForm.vue";
@@ -143,6 +152,9 @@ import {TOAST_SHOW_TIME, FAMILY_TYPE, GENDER_TYPE , MEMBER_TYPES} from "@/consta
 import { DASHBOARD } from '@/constants/path';
 import * as RouterPath from "@/constants/path";
 import { goto, detectBrowser } from "@/helpers/functions";
+import { HouseholdApi } from '@/apis/household-api'
+
+const householdApi = new HouseholdApi();
 
 
 export default {
@@ -160,6 +172,7 @@ export default {
     return {
       step: 1,
       showResultDialog: false,
+      isLoading: false,
       isSubmitting: false,
       memberTypes: MEMBER_TYPES,
       form: {
@@ -194,12 +207,26 @@ export default {
       },
     }
   },
-
+  mounted() {
+    if(this.$store.state.household.allHomes.length > 0) {
+      this.allHomes = _.cloneDeep(this.$store.state.household.allHomes)
+      this.isLoading = false;
+    }else{
+      this.isLoading = true;
+      this.getAllHomes().then((result)=> {
+        this.allHomes = _.cloneDeep(this.$store.state.household.allHomes)
+        console.log("allHomes", this.allHomes)
+        this.isLoading = false;
+      }).catch((err)=>{
+        console.log(err);
+        this.isLoading = false;
+      })
+    }
+  },
   methods: {
     ...mapActions([
-      'addNewHousehold',
+      'getAllHomes',
     ]),
-
     onNext(step, data) {
       if (step === 1) {
         this.form.members[0].firstName = data.firstName;
@@ -247,10 +274,11 @@ export default {
 
     onSubmit() {
       this.isSubmitting = true
-      this.addNewHousehold(this.form).then(data => {
+      householdApi.addNewHousehold(this.form).then(data => {
       this.isSubmitting = false
         this.showResultDialog = true;
         goto(RouterPath.DASHBOARD);
+        this.getAllHomes()
         // this.resetForm();
       })
       .catch(error => {

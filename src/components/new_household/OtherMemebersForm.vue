@@ -203,36 +203,30 @@ export default {
         // Check Birthday
         if (!(member.birthday && member.birthday.length > 0)) {
             valid = false;
-            console.log("member.birthday",member.birthday)
             break;
         }else{
-            console.log("member.birthday",member.birthday)
         }
 
         // Check Gender
         if (!(member.gender && member.gender.length > 0)) {
             valid = false;
-            console.log("member.gender",member.gender)
             break;
         }
 
         // Check first name.
         if (!(member.firstName && member.firstName.length > 0)) {
             valid = false;
-            console.log("member.firstName",member.firstName)
             break;
         }
 
         // Check last name.
         if (!(member.lastName && member.lastName.length > 0)) {
-            console.log("member.lastName",member.lastName)
             valid = false;
             break;
         }
 
          // Check last name.
         if (!(member.type && member.type.length > 0)) {
-            console.log("member.type",member.type)
             valid = false;
             break;
         }

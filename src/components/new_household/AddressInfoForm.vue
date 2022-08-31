@@ -3,6 +3,13 @@
     <v-card class="mb-12 p-5">
       <div class="old-address" style="padding-bottom: 10px;">
         <div class="label mb-3">Old Address</div>
+        <v-select
+          class="col-12"
+          :items="allHomes"
+          label="Old Address"
+          outlined
+          @change="onChangeOldHome"
+        />
         <div class="row">
           <v-text-field
             label="Address"
@@ -81,6 +88,13 @@
 
       <div class="new-address">
         <div class="label mb-3">New Address</div>
+        <v-select
+          class="col-12"
+          :items="allHomes"
+          label="New Address"
+          outlined
+          @change="onChangeNewHome"
+        />
         <div class="row">
           <v-text-field
             label="Address"
@@ -198,6 +212,7 @@ export default {
       disabledNext: true,
       stateData: STATE_NAMES,
       householdInfo: _.cloneDeep(this.data),
+      allHomes: this.$store.state.household.allHomes,
       countryRules: [
         (value) => !!value || "Please input country.",
       ],
@@ -416,6 +431,20 @@ export default {
       }
 
       this.disabledNext = !valid;
+    },
+    onChangeOldHome(item){
+      let index = this.allHomes.findIndex((home)=> home['_id'] == item)
+      if(index>= 0){
+        this.householdInfo.oldHome = _.cloneDeep(this.allHomes[index])
+      }
+      this.checkValid();
+    },
+    onChangeNewHome(item){
+      let index = this.allHomes.findIndex((home)=> home['_id'] == item)
+      if(index>= 0){
+        this.householdInfo.newHome = _.cloneDeep(this.allHomes[index])
+      }
+      this.checkValid();
     },
   },
 }

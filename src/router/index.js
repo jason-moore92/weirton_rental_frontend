@@ -4,6 +4,7 @@ import LoginScreen from "@/views/LoginScreen";
 import DashboardTemplate from "@/views/DashboardTemplate";
 import DashboardScreen from "@/views/DashboardScreen";
 import NewHousehold from "@/views/NewHousehold";
+import HomesScreen from "@/views/HomesScreen";
 import IncomingScreen from "@/views/IncomingScreen";
 
 import RentInfoScreen from "@/views/RentInfoScreen";
@@ -39,7 +40,7 @@ const routes = [
       {
         path: RouterPath.HOMES,
         name: "add/edit homs",
-        component: IncomingScreen,
+        component: HomesScreen,
       },
       {
         path: RouterPath.ENTRIES_EDIT,
