@@ -153,15 +153,14 @@ export default {
   }
 
   .main-page {
-    height: 100%;
+    height: 100vh;
   }
   #dashboard{
     margin-top: $appbarHeight;
     display: flex;
-    height: calc(100vh - $appbarHeight);
-    // height: calc(100% - $appbarHeight);
     width: 100%;
-    overflow-y: auto;
+    height: calc(100% - $appbarHeight);
+    // overflow: hidden;
   }
 
   .main-content {

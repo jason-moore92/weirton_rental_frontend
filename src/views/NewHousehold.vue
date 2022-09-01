@@ -338,6 +338,11 @@ export default {
   .v-stepper__header {
     background-color: $mainPageBack;
   }
+
+  .main-page{
+    height: 100%;
+    overflow: auto;
+  }
   
   .content-form {
     background-color: $mainPageBack;

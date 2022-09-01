@@ -373,17 +373,10 @@ export default {
           valid = false;
       }
 
-      if(this.householdInfo.oldHome._id == this.householdInfo.newHome._id){
-        valid = false;
-      }
-
       this.disabledNext = !valid;
     },
     onChangeOldHome(item){
-      if(item == this.householdInfo.newHome._id){
-        alert("Did you select the same address")
-      }
-
+      console.log("")
       let index = this.allHomes.findIndex((home)=> home['_id'] == item)
       if(index>= 0){
         this.householdInfo.oldHome = _.cloneDeep(this.allHomes[index])
@@ -395,10 +388,6 @@ export default {
       this.checkValid();
     },
     onChangeNewHome(item){
-      if(this.householdInfo.oldHome._id == item){
-        alert("Did you select the same address")
-      }
-
       let index = this.allHomes.findIndex((home)=> home['_id'] == item)
       if(index>= 0){
         this.householdInfo.newHome = _.cloneDeep(this.allHomes[index])

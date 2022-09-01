@@ -1,111 +1,185 @@
 <template>
   <div class="contact-form">
     <v-card class="mb-12 p-5">
-      <div class="label mb-3">Old Address</div>
-      <v-row class="old-address" style="padding-bottom: 10px;">
-        <v-autocomplete
-          class="col-12 autocomplete"
+      <div class="old-address" style="padding-bottom: 10px;">
+        <div class="label mb-3">Old Address</div>
+        <v-select
+          class="col-12"
           :items="allHomes"
-          clearable
-          filled
-          label="Filled"
+          label="Old Address"
+          outlined
           @change="onChangeOldHome"
-          @click:clear="onClearOldHome"
         />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">Address:&nbsp;</span>
-          <span class="value">{{householdInfo.oldHome.address}}</span>
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">City:&nbsp;</span>
-          <span class="value">{{householdInfo.oldHome.city}}</span>
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">City:&nbsp;</span>
-          <span class="value">{{householdInfo.oldHome.city}}</span>
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">State:&nbsp;</span>
-          <span class="value">{{householdInfo.oldHome.state}}</span>
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">Zipcode:&nbsp;</span>
-          <span class="value">{{householdInfo.oldHome.zipcode}}</span>
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">Country:&nbsp;</span>
-          <span>{{householdInfo.oldHome.country}}</span>
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">Tract Code:&nbsp;</span>
-          <span class="value">{{householdInfo.oldHome.tractCode}}</span>
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">MSA:&nbsp;</span>
-          <span class="value">{{householdInfo.oldHome.msa}}</span>
-        </div>
-      </v-row>
-      <v-divider />
-      <div class="label mb-3">New Address</div>
-      <v-row class="old-address" style="padding-bottom: 10px;">
         <v-autocomplete
-          class="col-12 autocomplete"
+          v-model="homeValue"
           :items="allHomes"
           clearable
           filled
           label="Filled"
+          @change="onChangeOldHome1"
+        ></v-autocomplete>
+
+        <div class="row">
+          <v-text-field
+            label="Address"
+            v-model="householdInfo.oldHome.address"
+            outlined
+            :rules="addressRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
+        </div>
+
+        <div class="row justify-content-between">
+          <v-text-field
+            class="col-md-4 col-sm-5 col-12"
+            label="City"
+            v-model="householdInfo.oldHome.city"
+            outlined
+            :rules="cityRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
+
+          <v-select
+            class="col-md-4 col-sm-5 col-12"
+            :items="stateData"
+            v-model="householdInfo.oldHome.state"
+            label="State"
+            outlined
+            :rules="stateRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
+
+          <v-text-field
+            class="col-md-4 col-sm-5 col-12"
+            label="Zip Code"
+            v-model="householdInfo.oldHome.zipcode"
+            outlined
+            :rules="zipRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
+        <!-- </div>
+
+        <div class="row justify-content-between"> -->
+          <v-text-field
+            class="col-md-4 col-sm-5 col-12"
+            label="Country"
+            v-model="householdInfo.oldHome.country"
+            outlined
+            :rules="countryRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
+          <v-text-field
+            class="col-md-4 col-sm-5 col-12"
+            label="MSA"
+            v-model="householdInfo.oldHome.msa"
+            outlined
+            :rules="msaRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
+
+          <v-text-field
+            class="col-md-4 col-sm-5 col-12"
+            label="Tract Code"
+            v-model="householdInfo.oldHome.tractCode"
+            outlined
+            :rules="tractCodeRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
+        </div>
+      </div>
+
+      <div class="new-address">
+        <div class="label mb-3">New Address</div>
+        <v-select
+          class="col-12"
+          :items="allHomes"
+          label="New Address"
+          outlined
           @change="onChangeNewHome"
-          @click:clear="onClearNewHome"
         />
-
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">Address:&nbsp;</span>
-          <span class="value">{{householdInfo.newHome.address}}</span>
+        <div class="row">
+          <v-text-field
+            label="Address"
+            v-model="householdInfo.newHome.address"
+            outlined
+            :rules="addressRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
         </div>
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">City:&nbsp;</span>
-          <span class="value">{{householdInfo.newHome.city}}</span>
-        </div>
+        <div class="row justify-content-between">
+          <v-text-field
+            class="col-md-4 col-sm-5 col-12"
+            label="City"
+            v-model="householdInfo.newHome.city"
+            outlined
+            :rules="cityRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">City:&nbsp;</span>
-          <span class="value">{{householdInfo.newHome.city}}</span>
-        </div>
+          <v-select
+            class="col-md-4 col-sm-5 col-12"
+            :items="stateData"
+            v-model="householdInfo.newHome.state"
+            label="State"
+            outlined
+            :rules="stateRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">State:&nbsp;</span>
-          <span class="value">{{householdInfo.newHome.state}}</span>
-        </div>
+          <v-text-field
+            class="col-md-4 col-sm-5 col-12"
+            label="Zip Code"
+            v-model="householdInfo.newHome.zipcode"
+            outlined
+            :rules="zipRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
+        <!-- </div>
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">Zipcode:&nbsp;</span>
-          <span class="value">{{householdInfo.newHome.zipcode}}</span>
-        </div>
+        <div class="row justify-content-between"> -->
+          <v-text-field
+            class="col-md-4 col-sm-5 col-12"
+            label="Country"
+            v-model="householdInfo.newHome.country"
+            outlined
+            :rules="countryRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
+          <v-text-field
+            class="col-md-4 col-sm-5 col-12"
+            label="MSA"
+            v-model="householdInfo.newHome.msa"
+            outlined
+            :rules="msaRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">Country:&nbsp;</span>
-          <span>{{householdInfo.newHome.country}}</span>
+          <v-text-field
+            class="col-md-4 col-sm-5 col-12"
+            label="Tract Code"
+            v-model="householdInfo.newHome.tractCode"
+            outlined
+            :rules="tractCodeRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
         </div>
-
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">Tract Code:&nbsp;</span>
-          <span class="value">{{householdInfo.newHome.tractCode}}</span>
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">MSA:&nbsp;</span>
-          <span class="value">{{householdInfo.newHome.msa}}</span>
-        </div>
-      </v-row>
+      </div>
 
       <div class="d-flex justify-content-end mt-3">
         <v-btn
@@ -373,40 +447,25 @@ export default {
           valid = false;
       }
 
-      if(this.householdInfo.oldHome._id == this.householdInfo.newHome._id){
-        valid = false;
-      }
-
       this.disabledNext = !valid;
     },
+    onChangeOldHome1(e, data){
+      console.log("e", e);
+      console.log("data", data);
+      console.log("homeValue", this.homeValue)
+    },
     onChangeOldHome(item){
-      if(item == this.householdInfo.newHome._id){
-        alert("Did you select the same address")
-      }
-
       let index = this.allHomes.findIndex((home)=> home['_id'] == item)
       if(index>= 0){
         this.householdInfo.oldHome = _.cloneDeep(this.allHomes[index])
       }
       this.checkValid();
     },
-    onClearOldHome(){
-      this.householdInfo.oldHome = {}
-      this.checkValid();
-    },
     onChangeNewHome(item){
-      if(this.householdInfo.oldHome._id == item){
-        alert("Did you select the same address")
-      }
-
       let index = this.allHomes.findIndex((home)=> home['_id'] == item)
       if(index>= 0){
         this.householdInfo.newHome = _.cloneDeep(this.allHomes[index])
       }
-      this.checkValid();
-    },
-    onClearNewHome(){
-      this.householdInfo.newHome = {}
       this.checkValid();
     },
   },
@@ -418,18 +477,5 @@ export default {
   }
   .label{
     padding-bottom: 10px;
-  }
-
-  .label{
-    padding-bottom: 10px;
-    font-weight: bold;
-  }
-</style>
-
-<style lang="scss">
-  .autocomplete {
-    .v-text-field__details {
-      display: none !important;
-    }
   }
 </style>

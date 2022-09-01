@@ -11,51 +11,55 @@
           Add Home
         </v-btn>
       </div>
-      <table class="with-header">
-        <tbody>
-          <tr
-          v-for="(row, x) in tableData"
-          :key="x"
-          :class="{header: x === 0}">
-          <template v-for="(col, y) in row">
-            <td
-              v-if="col.value != 'action'"
-              :key="y"
-              :data-th="tableData[0][y].value">
-              {{ col.value }}
-            </td>
-            <td
-              v-else-if="col.value == 'action' && x == 0"
-              :key="y"
-              :data-th="tableData[0][y].value"
-              >
-              <div class="action">
-                <font-awesome-icon 
-                  icon="fa-solid fa-circle-plus"  
-                  class="icon" style="color: #FFFFFF"
-                  @click="onOpenNewDialog()"/>
-              </div>
-            </td>
-            <td
-              v-else
-              :key="y">
-              <div class="action"> 
-                <font-awesome-icon 
-                  icon="fa-solid fa-pen-to-square"  
-                  class="icon" style="color: #17BB43" 
-                  @click="onOpenEditDialog(col.data)"/>
+      <div style="overflow-y: auto; height: calc(100% - 50px)">
+        <table class="with-header">
+          <tbody>
+            <tr
+            v-for="(row, x) in tableData"
+            :key="x"
+            :class="{header: x === 0}">
+            <template v-for="(col, y) in row">
+              <td
+                v-if="col.value != 'action'"
+                :key="y"
+                :data-th="tableData[0][y].value">
+                {{ col.value }}
+              </td>
+              <td
+                class="action-td text-center"
+                v-else-if="col.value == 'action' && x == 0"
+                :key="y"
+                style="height: 0px !important ;"
+                >
+                <!-- <div class="action">
+                  <font-awesome-icon 
+                    icon="fa-solid fa-circle-plus"  
+                    class="icon" style="color: #FFFFFF"
+                    @click="onOpenNewDialog()"/>
+                </div> -->
+              </td>
+              <td
+                class="action-td text-center"
+                v-else
+                :key="y">
+                <div class="action"> 
+                  <font-awesome-icon 
+                    icon="fa-solid fa-pen-to-square"  
+                    class="icon" style="color: #17BB43" 
+                    @click="onOpenEditDialog(col.data)"/>
 
-                 <font-awesome-icon 
-                  icon="fa-solid fa-trash-can" 
-                  class="icon" style="color: #F00"
-                  @click="onOpenDeleteDialog(col.data)"/>
-              </div>
-            </td>
-          </template>
-          
-        </tr>
-        </tbody>
-      </table>
+                  <font-awesome-icon 
+                    icon="fa-solid fa-trash-can" 
+                    class="icon" style="color: #F00"
+                    @click="onOpenDeleteDialog(col.data)"/>
+                </div>
+              </td>
+            </template>
+            
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
       <HomeAddressForm 
@@ -235,7 +239,8 @@ export default {
           { value: 'MSA' },
           { value: 'TractCode' },
           { value: 'action' },
-        ]
+        ],
+        
       ]
       for (let index = 0; index < this.allHomes.length; index++) {
         const home = this.allHomes[index];
@@ -249,8 +254,112 @@ export default {
           { value: home.tractCode },
           { value: 'action' , data: home },
         ])
+      }
 
-        
+      for (let index = 0; index < this.allHomes.length; index++) {
+        const home = this.allHomes[index];
+        tableData.push([
+          { value: home.address }, 
+          { value: home.city }, 
+          { value: home.state }, 
+          { value: home.country },
+          { value: home.zipcode },
+          { value: home.msa },
+          { value: home.tractCode },
+          { value: 'action' , data: home },
+        ])
+      }
+      for (let index = 0; index < this.allHomes.length; index++) {
+        const home = this.allHomes[index];
+        tableData.push([
+          { value: home.address }, 
+          { value: home.city }, 
+          { value: home.state }, 
+          { value: home.country },
+          { value: home.zipcode },
+          { value: home.msa },
+          { value: home.tractCode },
+          { value: 'action' , data: home },
+        ])
+      }
+      for (let index = 0; index < this.allHomes.length; index++) {
+        const home = this.allHomes[index];
+        tableData.push([
+          { value: home.address }, 
+          { value: home.city }, 
+          { value: home.state }, 
+          { value: home.country },
+          { value: home.zipcode },
+          { value: home.msa },
+          { value: home.tractCode },
+          { value: 'action' , data: home },
+        ])
+      }
+      for (let index = 0; index < this.allHomes.length; index++) {
+        const home = this.allHomes[index];
+        tableData.push([
+          { value: home.address }, 
+          { value: home.city }, 
+          { value: home.state }, 
+          { value: home.country },
+          { value: home.zipcode },
+          { value: home.msa },
+          { value: home.tractCode },
+          { value: 'action' , data: home },
+        ])
+      }
+      for (let index = 0; index < this.allHomes.length; index++) {
+        const home = this.allHomes[index];
+        tableData.push([
+          { value: home.address }, 
+          { value: home.city }, 
+          { value: home.state }, 
+          { value: home.country },
+          { value: home.zipcode },
+          { value: home.msa },
+          { value: home.tractCode },
+          { value: 'action' , data: home },
+        ])
+      }
+      for (let index = 0; index < this.allHomes.length; index++) {
+        const home = this.allHomes[index];
+        tableData.push([
+          { value: home.address }, 
+          { value: home.city }, 
+          { value: home.state }, 
+          { value: home.country },
+          { value: home.zipcode },
+          { value: home.msa },
+          { value: home.tractCode },
+          { value: 'action' , data: home },
+        ])
+      }
+      for (let index = 0; index < this.allHomes.length; index++) {
+        const home = this.allHomes[index];
+        tableData.push([
+          { value: home.address }, 
+          { value: home.city }, 
+          { value: home.state }, 
+          { value: home.country },
+          { value: home.zipcode },
+          { value: home.msa },
+          { value: home.tractCode },
+          { value: 'action' , data: home },
+        ])
+      }
+
+      for (let index = 0; index < this.allHomes.length; index++) {
+        const home = this.allHomes[index];
+        tableData.push([
+          { value: home.address }, 
+          { value: home.city }, 
+          { value: home.state }, 
+          { value: home.country },
+          { value: home.zipcode },
+          { value: home.msa },
+          { value: home.tractCode },
+          { value: 'action' , data: home },
+        ])
       }
       this.tableData = tableData
     },
@@ -354,16 +463,17 @@ export default {
   $breakpoint: 480px;
 
   .add-button{
-    display: none;
+    // display: none;
+    // padding: 0px;
+    // margin: 0px;
+    display: flex;
     padding: 0px;
-    margin: 0px;
+    margin-bottom: 10px;
+    height: 40px !important;
   }
 
   .main-page{
     padding: 15px;
-    // min-height: calc(100vh - $appbarHeight);
-    // max-height: calc(100vh - $appbarHeight);
-    // height: calc(100vh - $appbarHeight);
     height: 100%;
   }
   
@@ -371,18 +481,18 @@ export default {
     background-color: #FFF;
     width: 100%;
     height: 100%;
-    padding: 15px;
     border-radius: 8px;
+    padding: 15px;
 
     //////  table styles ////////
     table{
+      padding: 15px !important;
       min-width: 300px;
       width: 100%;
-      height: fit-content;
-      overflow-y: auto;
       border-collapse: collapse;
       border: 1px solid #c2c2c2;
       font-size: 16px;
+
       tr {
         td {
           border: 1px solid #c2c2c2;
@@ -427,10 +537,6 @@ export default {
         }
       }
       @media (max-width: $breakpoint) {
-        .add-button{
-          padding: 0px;
-          margin: 0px;
-        }
         tr:first-of-type {
           display: none;
         }
@@ -445,16 +551,17 @@ export default {
             &:last-child {
               padding-bottom: .5em;
             }
-            &:before {
-              content: attr(data-th)": ";
-              font-weight: bold;
-              display: inline-block;
-              @media (min-width: $breakpoint) {
-                display: none;
-              }
+          }
+          td:not(.action-td)::before {
+            content: attr(data-th)":";
+            font-weight: bold;
+            display: inline-block;
+            @media (min-width: $breakpoint) {
+              display: none;
             }
           }
-          td:last-child {
+
+          .action-td {
             width: 80px;
             .action {
               text-align: center;
@@ -477,6 +584,23 @@ export default {
       display: flex;
       padding: 0px;
       margin-bottom: 10px;
+      height: 40px !important;
+    }
+
+    .action-td {
+      width: 100% !important;
+      display: flex !important;
+      justify-content: flex-end;
+      
+      .action {
+        text-align: center;
+        width: 80px;
+        .icon{
+          cursor: pointer;
+          padding: 0px 5px;
+          height: 25px;
+        }
+      }
     }
   }
 </style>
