@@ -1,129 +1,133 @@
 <template>
   <div class="main-page">
-    <v-card class="mb-12 p-5">
-      <div class="row label mb-3 pl-2 pr-2">Please selecct home address</div>
-      <div class="row pl-2 pr-2">
-        <v-select
-          class="col-12"
-          :items="allHomes"
-          v-model="selectedHome['_id']"
-          label="Home Address"
-          outlined
-          @change="onChangeHome"
-        />
-      </div>
-
-      <v-divider />
-      
-      <div class="address-info mt-10">
-        <div class="row  pl-2 pr-2">
-          <v-text-field
-            label="Address"
-            v-model="selectedHome.address"
-            outlined
-            :rules="addressRules"
-            @input="checkValid"
-            @change="checkValid"
-          />
-        </div>
-
-        <div class="row justify-content-between">
-          <v-text-field
-            class="col-md-4 col-sm-6 col-12 pl-2 pr-2"
-            label="City"
-            v-model="selectedHome.city"
-            outlined
-            :rules="cityRules"
-            @input="checkValid"
-            @change="checkValid"
-          />
-
-          <v-select
-            class="col-md-4 col-sm-6 col-12 pl-2 pr-2"
-            :items="stateData"
-            v-model="selectedHome.state"
-            label="State"
-            outlined
-            :rules="stateRules"
-            @input="checkValid"
-            @change="checkValid"
-          />
-
-          <v-text-field
-            class="col-md-4 col-sm-6 col-12 pl-2 pr-2"
-            label="Zip Code"
-            v-model="selectedHome.zipcode"
-            outlined
-            :rules="zipRules"
-            @input="checkValid"
-            @change="checkValid"
-          />
-        <!-- </div>
-
-        <div class="row justify-content-between"> -->
-          <v-text-field
-            class="col-md-4 col-sm-6 col-12 pl-2 pr-2"
-            label="Country"
-            v-model="selectedHome.country"
-            outlined
-            :rules="countryRules"
-            @input="checkValid"
-            @change="checkValid"
-          />
-          <v-text-field
-            class="col-md-4 col-sm-6 col-12 pl-2 pr-2"
-            label="MSA"
-            v-model="selectedHome.msa"
-            outlined
-            :rules="msaRules"
-            @input="checkValid"
-            @change="checkValid"
-          />
-
-          <v-text-field
-            class="col-md-4 col-sm-6 col-12 pl-2 pr-2"
-            label="Tract Code"
-            v-model="selectedHome.tractCode"
-            outlined
-            :rules="tractCodeRules"
-            @input="checkValid"
-            @change="checkValid"
-          />
-        </div>
-      </div>
-
-      <div class="row justify-content-end mt-3">
+    <div class="table-panel">
+      <div class="d-flex justify-content-end" style="width: 100%">
         <v-btn
-          class="ml-2 mr-2 mb-3"
+          class="add-button"
           color="primary"
-          medium
-          :disabled="disabledNew"
-          @click="onNewHome"
+          small
+          @click="onOpenNewDialog"
+          >
+          Add Home
+        </v-btn>
+      </div>
+      <table class="with-header">
+        <tbody>
+          <tr
+          v-for="(row, x) in tableData"
+          :key="x"
+          :class="{header: x === 0}">
+          <template v-for="(col, y) in row">
+            <td
+              v-if="col.value != 'action'"
+              :key="y"
+              :data-th="tableData[0][y].value">
+              {{ col.value }}
+            </td>
+            <td
+              v-else-if="col.value == 'action' && x == 0"
+              :key="y"
+              :data-th="tableData[0][y].value"
+              >
+              <div class="action">
+                <font-awesome-icon 
+                  icon="fa-solid fa-circle-plus"  
+                  class="icon" style="color: #FFFFFF"
+                  @click="onOpenNewDialog()"/>
+              </div>
+            </td>
+            <td
+              v-else
+              :key="y">
+              <div class="action"> 
+                <font-awesome-icon 
+                  icon="fa-solid fa-pen-to-square"  
+                  class="icon" style="color: #17BB43" 
+                  @click="onOpenEditDialog(col.data)"/>
+
+                 <font-awesome-icon 
+                  icon="fa-solid fa-trash-can" 
+                  class="icon" style="color: #F00"
+                  @click="onOpenDeleteDialog(col.data)"/>
+              </div>
+            </td>
+          </template>
+          
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+      <HomeAddressForm 
+        v-if="showEditDialog"
+        :isNewHome="false"
+        :title="'Edit Home Address'"
+        :homeData="selectedHome"
+        @closeDialog="showEditDialog = false"
+        @onDone="onUpdateHome"
+      />
+
+      <HomeAddressForm 
+        v-if="showNewDialog"
+        :isNewHome="true"
+        :title="'New Home Address'"
+        @closeDialog="showNewDialog = false"
+        @onDone="onNewHome"
+      />
+
+      <v-dialog
+        v-model="showDeleteDialog"
+        max-width="290"
+      >
+        <v-card>
+          <v-card-title class="text-h5">
+            Delete Home Address
+          </v-card-title>
+  
+          <v-card-text>
+            Do you want to delete this home address?
+          </v-card-text>
+  
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="green darken-1"
+              text
+              @click="onDeleteHome"
+            >
+              Yes
+            </v-btn>
+  
+            <v-btn
+              color="blac darken-1"
+              text
+              @click="showDeleteDialog = false"
+            >
+              No
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+    <!-- <v-dialog
+      v-model="showEditDialog"
+      persistent
+      max-width="600px"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="primary"
+          dark
+          v-bind="attrs"
+          v-on="on"
         >
-          Add New
+          Open Dialog
         </v-btn>
-
-        <v-btn
-          class="ml-2 mr-2 mb-3"
-          color="primary"
-          medium
-          :disabled="disabledUpdate"
-          @click="onUpdateSelectedHome"
-          >
-            Update
-        </v-btn>
-
-         <v-btn
-          class="ml-2 mr-2 mb-3"
-          color="error"
-          medium
-          :disabled="this.selectedHome['_id'] == null"
-          @click="onDeleteSelectedHome"
-          >
-            Delete
-        </v-btn>
-      </div>
-    </v-card>
+      </template>
+      <HomeAddressForm 
+        @closeDialog="showEditDialog = false"
+      />
+    </v-dialog> -->
 
     <Loading
       v-if="isLoading"
@@ -143,6 +147,7 @@ import {mapActions} from 'vuex'
 
 import { HouseholdApi } from '@/apis/household-api'
 import {STATE_NAMES} from '@/constants';
+import HomeAddressForm from "@/components/new_household/HomeAddressForm.vue";
 
 const householdApi = new HouseholdApi();
 
@@ -150,10 +155,26 @@ export default {
   name: "HomesScreen",
   components: {
     Loading,
+    HomeAddressForm,
   },
   data () {
     return {
       isLoading: false,
+      showEditDialog: false,
+      showNewDialog: false,
+      showDeleteDialog: false,
+      tableData: [
+        [
+          { value: 'Address' }, 
+          { value: 'City' }, 
+          { value: 'State' }, 
+          { value: 'Country' },
+          { value: 'Zipcode' },
+          { value: 'MSA' },
+          { value: 'TractCode' },
+          { value: 'action' },
+        ],
+      ],
       allHomes: [],
       selectedHome: {},
       disabledUpdate: true,
@@ -185,12 +206,13 @@ export default {
   mounted() {
     if(this.$store.state.household.allHomes.length > 0) {
       this.allHomes = _.cloneDeep(this.$store.state.household.allHomes)
+      this.onConvertHomesToTableData()
       this.isLoading = false;
     }else{
       this.isLoading = true;
       this.getAllHomes().then((result)=> {
         this.allHomes = _.cloneDeep(this.$store.state.household.allHomes)
-        console.log("allHomes", this.allHomes)
+        this.onConvertHomesToTableData()
         this.isLoading = false;
       }).catch((err)=>{
         console.log(err);
@@ -202,87 +224,56 @@ export default {
     ...mapActions([
       'getAllHomes',
     ]),
-    onChangeHome(item){
-      console.log("item", item)
-      let index = this.allHomes.findIndex((home)=> home['_id'] == item)
-      console.log("index", index)
-      if(index>= 0){
-        this.selectedHome = _.cloneDeep(this.allHomes[index])
+    onConvertHomesToTableData(){
+      let tableData = [
+        [
+          { value: 'Address' }, 
+          { value: 'City' }, 
+          { value: 'State' }, 
+          { value: 'Country' },
+          { value: 'Zipcode' },
+          { value: 'MSA' },
+          { value: 'TractCode' },
+          { value: 'action' },
+        ]
+      ]
+      for (let index = 0; index < this.allHomes.length; index++) {
+        const home = this.allHomes[index];
+        tableData.push([
+          { value: home.address }, 
+          { value: home.city }, 
+          { value: home.state }, 
+          { value: home.country },
+          { value: home.zipcode },
+          { value: home.msa },
+          { value: home.tractCode },
+          { value: 'action' , data: home },
+        ])
+
+        
       }
-      console.log("selectedHome", this.selectedHome)
-      this.checkValid();
+      this.tableData = tableData
     },
-    checkValid() {
-      let valid = true;
-
-      // Check Country
-      if (!(this.selectedHome.country && this.selectedHome.country.length > 0)) {
-          valid = false;
-      }
-
-      // Check MSA
-      if (!(this.selectedHome.msa && this.selectedHome.msa.length > 0)) {
-          valid = false;
-      }
-
-      // Check Tract Code
-      if (!(this.selectedHome.tractCode && this.selectedHome.tractCode.length > 0)) {
-          valid = false;
-      }
-
-      
-      // Check Address.
-      if (!(this.selectedHome.address && this.selectedHome.address.length > 0)) {
-          valid = false;
-      }
-
-      // Check City.
-      if (!(this.selectedHome.city && this.selectedHome.city.length > 0)) {
-          valid = false;
-      }
-
-      // Check State.
-      if (!(this.selectedHome.state && this.selectedHome.state.length > 0)) {
-          valid = false;
-      }
-
-      // Check Zip.
-      if (!(this.selectedHome.zipcode && this.selectedHome.zipcode.length > 0)) {
-          valid = false;
-      }
-  
-      this.disabledNew = !valid;
-      
-      if (!(this.selectedHome['_id'])) {
-        valid = false;
-      }else{
-        this.disabledUpdate = !valid;
-      }
+    onOpenEditDialog(home){
+      this.selectedHome = home
+      this.showEditDialog = true
     },
-    onNewHome(){
-      this.selectedHome['_id'] == null;
-      console.log("selectedHome", this.selectedHome)
-
-      let index = this.allHomes.findIndex((home)=> 
-        home.address.toLowerCase() == this.selectedHome.address.toLowerCase()
-        && home.city.toLowerCase() == this.selectedHome.city.toLowerCase()
-        && home.state.toLowerCase() == this.selectedHome.state.toLowerCase()
-        && home.zipcode.toLowerCase() == this.selectedHome.zipcode.toLowerCase()
-        && home.country.toLowerCase() == this.selectedHome.country.toLowerCase()
-        && home.msa.toLowerCase() == this.selectedHome.msa.toLowerCase()
-        && home.tractCode.toLowerCase() == this.selectedHome.tractCode.toLowerCase()
-      )
-      if(index >= 0){
-        alert('Please input different address')
-        return;
-      }
-      householdApi.addHome(this.selectedHome).then((result)=>{
-        console.log("addHome", result)
-        this.selectedHome = {
+    onOpenNewDialog(){
+      this.selectedHome = {}
+      this.showNewDialog = true
+    },
+    onOpenDeleteDialog(home){
+      this.selectedHome = home
+      this.showDeleteDialog = true
+    },
+    onNewHome(newHome){
+      householdApi.addHome(newHome).then((result)=>{
+        result = {
           ...result,
           "text": result.address,
           "value": result['_id'],
         }
+        console.log("addHome", result)
         let allHomes = _.cloneDeep(this.allHomes)
         allHomes.push({
           ...result,
@@ -302,19 +293,12 @@ export default {
         })
 
         this.allHomes = allHomes
-
         this.$store.commit("setAllHomes", allHomes);
-        this.checkValid();
+        this.onConvertHomesToTableData()
       })
     },
-    onUpdateSelectedHome(){
-      householdApi.updateHome(this.selectedHome).then((result)=>{
-        console.log("updateHome", {
-          ...result,
-          "text": result.address,
-          "value": result['_id'],
-        })
-        this.selectedHome = result
+    onUpdateHome(newHome){
+      householdApi.updateHome(newHome).then((result)=>{
         let allHomes = _.cloneDeep(this.allHomes)
         let index = allHomes.findIndex((home)=> home['_id'] == result['_id'])
         if(index >= 0){
@@ -344,19 +328,22 @@ export default {
 
         this.allHomes = allHomes
         this.$store.commit("setAllHomes", allHomes);
+        this.onConvertHomesToTableData()
       })
     },
-    onDeleteSelectedHome(){
+    onDeleteHome(){
+      this.showDeleteDialog = false
       let allHomes = _.cloneDeep(this.allHomes)
       let index = allHomes.findIndex((home)=> home['_id'] == this.selectedHome['_id'])
       if(index >= 0){
         allHomes.splice(index, 1)
       }
+      householdApi.deleteHome(this.selectedHome).then((result)=>{
+      })
       this.allHomes = allHomes
       this.selectedHome = {}
       this.$store.commit("setAllHomes", allHomes);
-      householdApi.deleteHome(this.selectedHome).then((result)=>{
-      })
+      this.onConvertHomesToTableData()
     }
   },
 }
@@ -364,9 +351,132 @@ export default {
 
 <style lang="scss" scoped>
   @import 'src/assets/css/main.scss';
+  $breakpoint: 480px;
 
-  .main-page{
-    padding:30px;
+  .add-button{
+    display: none;
+    padding: 0px;
+    margin: 0px;
   }
 
+  .main-page{
+    padding: 15px;
+    // min-height: calc(100vh - $appbarHeight);
+    // max-height: calc(100vh - $appbarHeight);
+    // height: calc(100vh - $appbarHeight);
+    height: 100%;
+  }
+  
+  .table-panel{
+    background-color: #FFF;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    border-radius: 8px;
+
+    //////  table styles ////////
+    table{
+      min-width: 300px;
+      width: 100%;
+      height: fit-content;
+      overflow-y: auto;
+      border-collapse: collapse;
+      border: 1px solid #c2c2c2;
+      font-size: 16px;
+      tr {
+        td {
+          border: 1px solid #c2c2c2;
+          padding: 5px;
+        }
+
+        td:last-child {
+          width: 50px;
+          .action {
+            text-align: center;
+            width: 50px;
+            .icon{
+              cursor: pointer;
+              padding: 0px 5px;
+            }
+          }
+        }
+      }
+      .header {
+        border-right: none;
+        border-left: none;
+        background: #ddd;
+        border-bottom: 1px solid #c2c2c2;
+        border: none;
+        td {
+          border: none;
+          background: #1CB5B1;
+          color: #fff;
+          border: none;
+          font-size: 16px;
+          font-weight: bold;
+        }
+      }
+
+      
+    }
+
+    .with-header {
+      tr:first-of-type {
+        td {
+          border-bottom: 1px solid #1CB5B1 !important;
+        }
+      }
+      @media (max-width: $breakpoint) {
+        .add-button{
+          padding: 0px;
+          margin: 0px;
+        }
+        tr:first-of-type {
+          display: none;
+        }
+        tr {
+          border: 1px solid #000;
+          td {
+            display: block;
+            border: none;
+            &:first-child {
+              padding-top: .5em;
+            }
+            &:last-child {
+              padding-bottom: .5em;
+            }
+            &:before {
+              content: attr(data-th)": ";
+              font-weight: bold;
+              display: inline-block;
+              @media (min-width: $breakpoint) {
+                display: none;
+              }
+            }
+          }
+          td:last-child {
+            width: 80px;
+            .action {
+              text-align: center;
+              width: 80px;
+              .icon{
+                cursor: pointer;
+                padding: 0px 5px;
+                height: 25px;
+              }
+            }
+          }
+        }
+      }
+    }
+    ////// -------- table styles ------ ////////
+  }
+
+  @media (max-width: $breakpoint) {
+    .add-button{
+      display: flex;
+      padding: 0px;
+      margin-bottom: 10px;
+    }
+  }
 </style>

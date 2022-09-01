@@ -32,7 +32,7 @@
       <div 
         :class="showSidebar?'':'hidden'" class="hover-panel"
         @click.stop="()=>{showSidebar = !showSidebar}"
-      >&nbsp;</div>
+      ></div>
     </div>
   </div>
 </template>
@@ -159,6 +159,7 @@ export default {
     margin-top: $appbarHeight;
     display: flex;
     height: calc(100vh - $appbarHeight);
+    // height: calc(100% - $appbarHeight);
     width: 100%;
     overflow-y: auto;
   }

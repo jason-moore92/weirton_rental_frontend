@@ -204,7 +204,6 @@ export default {
         if (!(member.birthday && member.birthday.length > 0)) {
             valid = false;
             break;
-        }else{
         }
 
         // Check Gender
