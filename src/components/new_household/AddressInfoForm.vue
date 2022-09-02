@@ -2,55 +2,87 @@
   <div class="contact-form">
     <v-card class="mb-12 p-5">
       <div class="label mb-3">Old Address</div>
-      <v-row class="old-address" style="padding-bottom: 10px;">
+      <v-row class="old-address" style="padding-bottom: 10px; width: 100%">
         <v-autocomplete
           class="col-12 autocomplete"
           :items="allHomes"
           clearable
           filled
-          label="Filled"
+          placeholder="Please choose old address"
           @change="onChangeOldHome"
           @click:clear="onClearOldHome"
         />
+        <div class="row justify-content-between mt-6">
+          <v-text-field
+            class="col-12 mt-0 mb-0"
+            label="Address"
+            v-model="householdInfo.oldHome.address"
+            outlined
+            :rules="addressRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">Address:&nbsp;</span>
-          <span class="value">{{householdInfo.oldHome.address}}</span>
-        </div>
+          <v-text-field
+            class="col-md-4 col-sm-6 col-12 mt-0 mb-0"
+            label="City"
+            v-model="householdInfo.oldHome.city"
+            outlined
+            :rules="cityRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">City:&nbsp;</span>
-          <span class="value">{{householdInfo.oldHome.city}}</span>
-        </div>
+          <v-select
+            class="col-md-4 col-sm-6 col-12 mt-0 mb-0"
+            :items="stateData"
+            v-model="householdInfo.oldHome.state"
+            label="State"
+            outlined
+            :rules="stateRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">City:&nbsp;</span>
-          <span class="value">{{householdInfo.oldHome.city}}</span>
-        </div>
+          <v-text-field
+            class="col-md-4 col-sm-6 col-12 mt-0 mb-0"
+            label="Zip Code"
+            v-model="householdInfo.oldHome.zipcode"
+            outlined
+            :rules="zipRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">State:&nbsp;</span>
-          <span class="value">{{householdInfo.oldHome.state}}</span>
-        </div>
+          <v-text-field
+            class="col-md-4 col-sm-6 col-12 mt-0 mb-0"
+            label="Country"
+            v-model="householdInfo.oldHome.country"
+            outlined
+            :rules="countryRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">Zipcode:&nbsp;</span>
-          <span class="value">{{householdInfo.oldHome.zipcode}}</span>
-        </div>
+          <v-text-field
+            class="col-md-4 col-sm-6 col-12 mt-0 mb-0"
+            label="MSA"
+            v-model="householdInfo.oldHome.msa"
+            outlined
+            :rules="msaRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">Country:&nbsp;</span>
-          <span>{{householdInfo.oldHome.country}}</span>
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">Tract Code:&nbsp;</span>
-          <span class="value">{{householdInfo.oldHome.tractCode}}</span>
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">MSA:&nbsp;</span>
-          <span class="value">{{householdInfo.oldHome.msa}}</span>
+          <v-text-field
+            class="col-md-4 col-sm-6 col-12 mt-0 mb-0"
+            label="Tract Code"
+            v-model="householdInfo.oldHome.tractCode"
+            outlined
+            :rules="tractCodeRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
         </div>
       </v-row>
       <v-divider />
@@ -61,49 +93,82 @@
           :items="allHomes"
           clearable
           filled
-          label="Filled"
+          placeholder="Please choose new address"
           @change="onChangeNewHome"
           @click:clear="onClearNewHome"
         />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">Address:&nbsp;</span>
-          <span class="value">{{householdInfo.newHome.address}}</span>
-        </div>
+        <div class="row justify-content-between mt-6">
+          <v-text-field
+            class="col-12 mt-0 mb-0"
+            label="Address"
+            v-model="householdInfo.newHome.address"
+            outlined
+            :rules="addressRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">City:&nbsp;</span>
-          <span class="value">{{householdInfo.newHome.city}}</span>
-        </div>
+          <v-text-field
+            class="col-md-4 col-sm-6 col-12 mt-0 mb-0"
+            label="City"
+            v-model="householdInfo.newHome.city"
+            outlined
+            :rules="cityRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">City:&nbsp;</span>
-          <span class="value">{{householdInfo.newHome.city}}</span>
-        </div>
+          <v-select
+            class="col-md-4 col-sm-6 col-12 mt-0 mb-0"
+            :items="stateData"
+            v-model="householdInfo.newHome.state"
+            label="State"
+            outlined
+            :rules="stateRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">State:&nbsp;</span>
-          <span class="value">{{householdInfo.newHome.state}}</span>
-        </div>
+          <v-text-field
+            class="col-md-4 col-sm-6 col-12 mt-0 mb-0"
+            label="Zip Code"
+            v-model="householdInfo.newHome.zipcode"
+            outlined
+            :rules="zipRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">Zipcode:&nbsp;</span>
-          <span class="value">{{householdInfo.newHome.zipcode}}</span>
-        </div>
+          <v-text-field
+            class="col-md-4 col-sm-6 col-12 mt-0 mb-0"
+            label="Country"
+            v-model="householdInfo.newHome.country"
+            outlined
+            :rules="countryRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">Country:&nbsp;</span>
-          <span>{{householdInfo.newHome.country}}</span>
-        </div>
+          <v-text-field
+            class="col-md-4 col-sm-6 col-12 mt-0 mb-0"
+            label="MSA"
+            v-model="householdInfo.newHome.msa"
+            outlined
+            :rules="msaRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
 
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">Tract Code:&nbsp;</span>
-          <span class="value">{{householdInfo.newHome.tractCode}}</span>
-        </div>
-
-        <div class="col-md-6 col-sm-6 col-12">
-          <span class="label">MSA:&nbsp;</span>
-          <span class="value">{{householdInfo.newHome.msa}}</span>
+          <v-text-field
+            class="col-md-4 col-sm-6 col-12 mt-0 mb-0"
+            label="Tract Code"
+            v-model="householdInfo.newHome.tractCode"
+            outlined
+            :rules="tractCodeRules"
+            @input="checkValid"
+            @change="checkValid"
+          />
         </div>
       </v-row>
 
@@ -373,16 +438,16 @@ export default {
           valid = false;
       }
 
-      if(this.householdInfo.oldHome._id == this.householdInfo.newHome._id){
-        valid = false;
-      }
+      // if(this.householdInfo.oldHome._id == this.householdInfo.newHome._id){
+      //   valid = false;
+      // }
 
       this.disabledNext = !valid;
     },
     onChangeOldHome(item){
-      if(item == this.householdInfo.newHome._id){
-        alert("Did you select the same address")
-      }
+      // if(item == this.householdInfo.newHome._id){
+      //   alert("Did you select the same address")
+      // }
 
       let index = this.allHomes.findIndex((home)=> home['_id'] == item)
       if(index>= 0){
@@ -395,9 +460,9 @@ export default {
       this.checkValid();
     },
     onChangeNewHome(item){
-      if(this.householdInfo.oldHome._id == item){
-        alert("Did you select the same address")
-      }
+      // if(this.householdInfo.oldHome._id == item){
+      //   alert("Did you select the same address")
+      // }
 
       let index = this.allHomes.findIndex((home)=> home['_id'] == item)
       if(index>= 0){
@@ -431,5 +496,17 @@ export default {
     .v-text-field__details {
       display: none !important;
     }
+    .v-input__slot {
+      border: 1px solid rgba(0,0,0,.42) !important;
+    }
+
+    // .v-text-field>.v-input__control>.v-input__slot:before{
+
+    //   border: 1px solid #25E814 !important;
+    // }
+
+    // .v-text-field>.v-input__control>.v-input__slot:after{
+    //   border: 1px solid #25E814 !important;
+    // }
   }
 </style>

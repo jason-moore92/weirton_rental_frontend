@@ -34,11 +34,12 @@ export default {
   data(){
     return {
       leftMenuOptions: [
-        { id: 1, name: "Add New Household",  path: RouterPath.NEW_HOUSEHOLD},
-        { id: 2, name: "Edit/Add Homes", path: RouterPath.HOMES},
-        { id: 3, name: "Edit Existing Entries", path: RouterPath.ENTRIES_EDIT},
-        { id: 4, name: "Export Results",  path: RouterPath.EXPORT_RESULT},
-        { id: 5, name: "Manager Users",  path: RouterPath.MANAGE_USERS},
+        { id: 1, name: "Dashboard",  path: RouterPath.DASHBOARD},
+        { id: 2, name: "Add New Household",  path: RouterPath.NEW_HOUSEHOLD},
+        { id: 3, name: "Edit/Add Homes", path: RouterPath.HOMES},
+        { id: 4, name: "Edit Existing Entries", path: RouterPath.ENTRIES_EDIT},
+        { id: 5, name: "Export Results",  path: RouterPath.EXPORT_RESULT},
+        { id: 6, name: "Manager Users",  path: RouterPath.MANAGE_USERS},
       ],
       menu: [
         {

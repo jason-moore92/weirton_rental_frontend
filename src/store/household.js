@@ -5,11 +5,15 @@ const householdApi = new HouseholdApi();
 const Rental = {
   state: {
     allHomes: [],
+    allHouseholdMembers: [],
   },
   
   mutations: {
     setAllHomes: (state, allHomes)=>{ 
       state.allHomes = allHomes
+    },
+    setAllHouseholdMembers: (state, allHouseholdMembers) => {
+      state.allHouseholdMembers = allHouseholdMembers
     },
   },
   actions: {
@@ -38,6 +42,32 @@ const Rental = {
 
       commit("setAllHomes", allHomes);
       return allHomes
+    },
+    async getAllHouseholdMembers({ state, commit }, data) {
+      let result = await householdApi.getAllHouseholdMembers();
+
+      let allHouseholdMembers = []
+      for (const member of result) {
+        allHouseholdMembers.push({
+          ...member,
+          "text": member.firstName + ' ' +member.lastName,
+          "value": member['_id'],
+        })
+      }
+
+      allHouseholdMembers.sort((a, b) => {
+        let fa = a.text.toLowerCase(), fb = b.text.toLowerCase();
+        if (fa < fb) {
+          return -1
+        }
+        if (fa > fb) {
+          return 1
+        }
+        return 0
+      })
+
+      commit("setAllHouseholdMembers", allHouseholdMembers);
+      return allHouseholdMembers
     }
   },
   getters: {

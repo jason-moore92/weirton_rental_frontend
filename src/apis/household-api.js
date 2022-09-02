@@ -57,6 +57,33 @@ export class HouseholdApi {
     });
   }
 
+  async getAllHouseholdMembers() {
+    const url = BASE_URL + "/household/getAllHouseholdMembers";
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    return new Promise(function (resolve, reject) {
+      axios
+        .get(url, { headers })
+        .then(function (response) {
+          if (response && response.data) {
+            if (response.data.success) {
+              resolve(response.data.data);
+            } else {
+              reject(response.data.data);
+            }
+          } else {
+            reject(Messages.NetWorkError);
+          }
+        })
+        .catch((error) => {
+          console.log("getToken API error: ", error);
+          reject(Messages.NetWorkError);
+        });
+    });
+  }
+
   async updateHome(home) {
     const url = BASE_URL + "/household/updateHome";
     const headers = {

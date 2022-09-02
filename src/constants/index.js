@@ -1,5 +1,5 @@
-// export const BASE_URL = "http://localhost:5000/api";
-export const BASE_URL = 'https://weirton-household-backend.herokuapp.com/api';
+export const BASE_URL = "http://localhost:5000/api";
+// export const BASE_URL = 'https://weirton-household-backend.herokuapp.com/api';
 export const DATE_TIME_FORMAT = "MMMM DD YYYY, hh:mm A";
 export const TOAST_SHOW_TIME = 3000;
 export const RECAPTCHA_KEY = '6LcF-nkgAAAAADOxW9u7oxVt-xm_O5hwkxTcZrIc';

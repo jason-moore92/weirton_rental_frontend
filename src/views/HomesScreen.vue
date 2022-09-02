@@ -381,7 +381,7 @@ export default {
     //////  table styles ////////
     table{
       padding: 15px !important;
-      min-width: 300px;
+      // min-width: 300px;
       width: 100%;
       border-collapse: collapse;
       border: 1px solid #c2c2c2;

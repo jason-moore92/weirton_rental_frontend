@@ -57,6 +57,16 @@ export default {
           hiddenOnCollapse: true
         },
         {
+          href: RouterPath.DASHBOARD,
+          title: 'Dashboard',
+          icon: {
+            element: 'img',
+            attributes: {
+              src: require('@/assets/images/sidemenu/side_home.svg'),
+            }
+          },
+        },
+        {
           href: RouterPath.NEW_HOUSEHOLD,
           title: 'Add New Household',
           icon: {
